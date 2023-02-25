@@ -28,7 +28,7 @@
 
         <div class="ml-auto flex h-full items-center">
           <ProfileImage v-if="isLoggedIn" />
-          <ActionButton v-else text="Sign in" @click="LOGIN_USER" />
+          <ActionButton v-else text="Sign in" @click="loginUser" />
         </div>
       </div>
 
@@ -43,7 +43,6 @@ import { useUserStore } from "@/stores/user";
 import ActionButton from "@/components/Shared/ActionButton.vue";
 import ProfileImage from "@/components/Navigation/ProfileImage.vue";
 import BaseSubnav from "@/components/Navigation/BaseSubnav.vue";
-import { LOGIN_USER } from "@/stores/user";
 
 export default {
   name: "MainNav",
@@ -74,7 +73,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(useUserStore, [LOGIN_USER]),
+    ...mapActions(useUserStore, ["loginUser"]),
   },
 };
 </script>

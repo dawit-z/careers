@@ -20,7 +20,7 @@ describe("actions", () => {
   describe("loginUser", () => {
     it("keeps track of login status", () => {
       const userStore = useUserStore();
-      userStore.LOGIN_USER();
+      userStore.loginUser();
       expect(userStore.isLoggedIn).toBe(true);
     });
   });

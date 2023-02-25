@@ -32,7 +32,7 @@
 
 <script>
 import JobListing from "@/components/JobResults/JobListing.vue";
-import { useJobsStore, FETCH_JOBS } from "@/stores/jobs";
+import { useJobsStore } from "@/stores/jobs";
 import { mapActions, mapState } from "pinia";
 
 export default {
@@ -63,10 +63,10 @@ export default {
     }),
   },
   async mounted() {
-    this.FETCH_JOBS();
+    this.fetchJobs();
   },
   methods: {
-    ...mapActions(useJobsStore, [FETCH_JOBS]),
+    ...mapActions(useJobsStore, ["fetchJobs"]),
   },
 };
 </script>

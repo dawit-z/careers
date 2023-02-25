@@ -32,7 +32,7 @@ describe("JobListings", () => {
     const $route = createRoute();
     renderJobListing($route);
     const jobStore = useJobsStore();
-    expect(jobStore.FETCH_JOBS).toHaveBeenCalled();
+    expect(jobStore.fetchJobs).toHaveBeenCalled();
   });
 
   it("displays a maximum of 10 jobs", async () => {
