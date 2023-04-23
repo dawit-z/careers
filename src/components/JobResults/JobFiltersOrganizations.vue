@@ -4,7 +4,14 @@
       <fieldset>
         <ul class="flex flex-row flex-wrap">
           <li v-for="org in uniqueOrganizations" :key="org" class="h-8 w-1/2">
-            <input :id="org" type="checkbox" class="mr-3" />
+            <input
+              :id="org"
+              v-model="selectedOrganizations"
+              :value="org"
+              type="checkbox"
+              class="mr-3"
+              @change="addSelectedOrganization(selectedOrganizations)"
+            />
             <label :for="org">{{ org }}</label>
           </li>
         </ul>
@@ -14,15 +21,22 @@
 </template>
 
 <script>
-import { mapGetters } from "pinia";
+import { mapState, mapActions } from "pinia";
+import { useUserStore } from "@/stores/user";
 import { useJobsStore } from "@/stores/jobs";
 import CollapsibleAccordion from "@/components/Shared/CollapsibleAccordion.vue";
 
 export default {
   name: "JobFiltersOrganizations",
   components: { CollapsibleAccordion },
+  data: () => ({
+    selectedOrganizations: [],
+  }),
   computed: {
-    ...mapGetters(useJobsStore, ["uniqueOrganizations"]),
+    ...mapState(useJobsStore, ["uniqueOrganizations"]),
+  },
+  methods: {
+    ...mapActions(useUserStore, ["addSelectedOrganization"]),
   },
 };
 </script>

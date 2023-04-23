@@ -10,6 +10,11 @@ describe("state", () => {
     const store = useUserStore();
     expect(store.isLoggedIn).toBe(false);
   });
+
+  it("keeps track of selected organizations", () => {
+    const store = useUserStore();
+    expect(store.selectedOrganizations).toEqual([]);
+  });
 });
 
 describe("actions", () => {
@@ -19,9 +24,17 @@ describe("actions", () => {
 
   describe("loginUser", () => {
     it("keeps track of login status", () => {
-      const userStore = useUserStore();
-      userStore.loginUser();
-      expect(userStore.isLoggedIn).toBe(true);
+      const store = useUserStore();
+      store.loginUser();
+      expect(store.isLoggedIn).toBe(true);
+    });
+  });
+
+  describe("addSelectedOrganization", () => {
+    it("updates orgs that user has selected to filter by", () => {
+      const store = useUserStore();
+      store.addSelectedOrganization(["Org1", "Org2"]);
+      expect(store.selectedOrganizations).toEqual(["Org1", "Org2"]);
     });
   });
 });
