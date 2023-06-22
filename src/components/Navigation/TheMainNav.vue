@@ -1,6 +1,6 @@
 <template>
   <header :class="['w-full', 'text-sm', headerHeight]">
-    <div class="fixed top-0 left-0 h-16 w-full bg-white">
+    <div class="fixed left-0 top-0 h-16 w-full bg-white">
       <div
         class="mx-auto flex h-full flex-nowrap border-b border-solid border-brand-gray-1 px-8"
       >
@@ -32,7 +32,7 @@
         </div>
       </div>
 
-      <BaseSubnav v-if="isLoggedIn" />
+      <TheSubnav v-if="isLoggedIn" />
     </div>
   </header>
 </template>
@@ -42,14 +42,14 @@ import { mapActions, mapState } from "pinia";
 import { useUserStore } from "@/stores/user";
 import ActionButton from "@/components/Shared/ActionButton.vue";
 import ProfileImage from "@/components/Navigation/ProfileImage.vue";
-import BaseSubnav from "@/components/Navigation/BaseSubnav.vue";
+import TheSubnav from "@/components/Navigation/TheSubnav.vue";
 
 export default {
-  name: "MainNav",
+  name: "TheMainNav",
   components: {
     ActionButton,
     ProfileImage,
-    BaseSubnav,
+    TheSubnav,
   },
   data() {
     return {

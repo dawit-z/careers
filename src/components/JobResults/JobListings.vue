@@ -48,17 +48,20 @@ export default {
       return previousPage >= firstPage ? previousPage : undefined;
     },
     ...mapState(useJobsStore, {
-      jobs: "jobs",
+      filteredJobsByOrganization: "filteredJobsByOrganization",
       nextPage() {
         const nextPage = this.currentPage + 1;
-        const maxPage = Math.ceil(this.jobs.length / 10);
+        const maxPage = Math.ceil(this.filteredJobsByOrganization.length / 10);
         return nextPage <= maxPage ? nextPage : undefined;
       },
       displayedJobs() {
         const pageNumber = this.currentPage;
         const firstJobIndex = (pageNumber - 1) * 10;
         const lastJobIndex = pageNumber * 10;
-        return this.jobs.slice(firstJobIndex, lastJobIndex);
+        return this.filteredJobsByOrganization.slice(
+          firstJobIndex,
+          lastJobIndex
+        );
       },
     }),
   },

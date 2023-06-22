@@ -1,5 +1,4 @@
-import { render, screen } from "@testing-library/vue";
-import userEvent from "@testing-library/user-event";
+import { render, screen, fireEvent } from "@testing-library/vue";
 
 import JobSearchForm from "@/components/JobSearch/JobSearchForm.vue";
 
@@ -21,13 +20,13 @@ describe("JobSearchForm", () => {
       });
 
       const roleInput = screen.getByRole("textbox", { name: "Role" });
-      await userEvent.type(roleInput, "Vue Developer");
+      await fireEvent.update(roleInput, "Vue Developer");
 
       const locationInput = screen.getByRole("textbox", { name: "Where?" });
-      await userEvent.type(locationInput, "Dallas");
+      await fireEvent.update(locationInput, "Dallas");
 
       const submitButton = screen.getByRole("button", { name: "Search" });
-      await userEvent.click(submitButton);
+      await fireEvent.click(submitButton);
 
       expect(push).toHaveBeenCalledWith({
         name: "JobResults",

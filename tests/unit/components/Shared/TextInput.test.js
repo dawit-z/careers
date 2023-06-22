@@ -1,5 +1,4 @@
-import { render, screen } from "@testing-library/vue";
-import userEvent from "@testing-library/user-event";
+import { render, screen, fireEvent } from "@testing-library/vue";
 
 import TextInput from "@/components/Shared/TextInput.vue";
 
@@ -12,8 +11,8 @@ describe("TextInput", () => {
     });
 
     const input = screen.getByRole("textbox");
-    await userEvent.type(input, "NYC");
+    await fireEvent.update(input, "NYC");
     const messages = emitted()["update:modelValue"];
-    expect(messages).toEqual([["N"], ["NY"], ["NYC"]]);
+    expect(messages).toEqual([["NYC"]]);
   });
 });

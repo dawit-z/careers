@@ -1,7 +1,9 @@
 import { createPinia, setActivePinia } from "pinia";
 import axios from "axios";
 vi.mock("axios");
+
 import { useJobsStore } from "@/stores/jobs";
+import { useUserStore } from "@/stores/user";
 
 describe("state", () => {
   beforeEach(() => {
@@ -34,16 +36,53 @@ describe("getters", () => {
     setActivePinia(createPinia());
   });
 
-  describe("getUniqueOrganizations", () => {
+  describe("uniqueOrganizations", () => {
     it("finds unique organizations from list of jobs", async () => {
-      const store = useJobsStore();
-      store.jobs = [
+      const jobsStore = useJobsStore();
+      jobsStore.jobs = [
         { organization: "Vue" },
         { organization: "Vue" },
         { organization: "Google" },
       ];
 
-      expect(store.uniqueOrganizations).toEqual(new Set(["Vue", "Google"]));
+      expect(jobsStore.uniqueOrganizations).toEqual(new Set(["Vue", "Google"]));
+    });
+  });
+
+  describe("filteredJobs", () => {
+    it("finds jobs that are associated with given org's", async () => {
+      const jobsStore = useJobsStore();
+      jobsStore.jobs = [
+        { organization: "Vue" },
+        { organization: "Amazon" },
+        { organization: "Google" },
+      ];
+
+      const userStore = useUserStore();
+      userStore.selectedOrganizations = ["Vue", "Google"];
+
+      const result = jobsStore.filteredJobsByOrganization;
+      expect(result).toEqual([
+        { organization: "Vue" },
+        { organization: "Google" },
+      ]);
+    });
+
+    describe("when user has not selected any organizations", () => {
+      it("returns all jobs", () => {
+        const jobsStore = useJobsStore();
+        jobsStore.jobs = [
+          { organization: "Vue" },
+          { organization: "Amazon" },
+          { organization: "Google" },
+        ];
+
+        const userStore = useUserStore();
+        userStore.selectedOrganizations = [];
+
+        const result = jobsStore.filteredJobsByOrganization;
+        expect(result).toEqual(jobsStore.jobs);
+      });
     });
   });
 });
