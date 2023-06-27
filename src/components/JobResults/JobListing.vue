@@ -4,7 +4,7 @@
       :to="jobPageLink"
       class="mx-auto block rounded border border-solid border-brand-gray-2 bg-white hover:shadow-gray"
     >
-      <div class="mx-8 border-b border-solid border-brand-gray-2 pt-5 pb-2">
+      <div class="mx-8 border-b border-solid border-brand-gray-2 pb-2 pt-5">
         <h2 class="mb-2 text-2xl">
           {{ job.title }}
         </h2>
@@ -29,7 +29,7 @@
 
       <div class="px-8 py-4">
         <div>
-          <h3 class="mt-1 mb-2">Qualifications:</h3>
+          <h3 class="mb-2 mt-1">Qualifications:</h3>
           <div>
             <ul class="list-disc pl-8">
               <li

@@ -16,7 +16,7 @@
 
 <script>
 import { mapState } from "pinia";
-import { useJobsStore } from "@/stores/user";
+import { useJobsStore } from "@/stores/jobs";
 
 export default {
   name: "TheSubnav",

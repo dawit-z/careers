@@ -43,7 +43,7 @@ describe("TheSubnav", () => {
       const numOfJobs = 16;
       jobsStore.filteredJobsByOrganization = Array(numOfJobs).fill({});
 
-      const jobCount = await screen.findByText(numOfJobs);
+      const jobCount = screen.queryByText(numOfJobs);
       expect(jobCount).not.toBeInTheDocument();
     });
   });

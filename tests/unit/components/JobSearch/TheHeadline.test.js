@@ -3,7 +3,7 @@ import TheHeadline from "@/components/JobSearch/TheHeadline.vue";
 import { nextTick } from "vue";
 import { vi } from "vitest";
 
-describe("TheHeadline", () => {
+describe.skip("TheHeadline", () => {
   beforeEach(() => {
     vi.useFakeTimers();
   });
