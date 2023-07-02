@@ -2,6 +2,6 @@
   <TheHero />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import TheHero from "@/components/JobSearch/TheHero.vue";
 </script>

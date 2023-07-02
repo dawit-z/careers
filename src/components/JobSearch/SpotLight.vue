@@ -10,17 +10,23 @@
   </ul>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import axios from "axios";
 import { ref, onMounted } from "vue";
 
-const spotlights = ref([]);
+interface Spotlight {
+  id: number;
+  img: string;
+  title: string;
+  description: string;
+}
+const spotlights = ref<Spotlight[]>([]);
 
-const getSpotlights = async () => {
+async function getSpotlights() {
   const baseUrl = `${import.meta.env.VITE_APP_API_URL}/spotlights`;
-  const response = await axios.get(baseUrl);
+  const response = await axios.get<Spotlight[]>(baseUrl);
   spotlights.value = response.data;
-};
+}
 
 onMounted(getSpotlights);
 </script>

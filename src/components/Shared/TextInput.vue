@@ -6,6 +6,6 @@
   />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const modelValue = defineModel();
 </script>

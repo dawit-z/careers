@@ -9,12 +9,12 @@
   </section>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import nextElementInList from "@/utils/nextElementInList";
-import { onMounted, onUnmounted, computed, ref } from "vue";
+import { onMounted, onBeforeUnmount, computed, ref } from "vue";
 
 const action = ref("Build");
-const interval = ref(null);
+const interval = ref<ReturnType<typeof setInterval>>();
 
 const actionClass = computed(() => {
   return {
@@ -22,13 +22,13 @@ const actionClass = computed(() => {
   };
 });
 
-onMounted(() => changeTitle);
-onUnmounted(() => clearInterval(interval));
+onMounted(changeTitle);
+onBeforeUnmount(() => clearInterval(interval.value));
 
 function changeTitle() {
   interval.value = setInterval(() => {
     const actions = ["Build", "Create", "Design", "Code"];
-    action.value = nextElementInList(actions, action);
+    action.value = nextElementInList(actions, action.value);
   }, 3000);
 }
 </script>

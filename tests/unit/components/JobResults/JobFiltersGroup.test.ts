@@ -3,16 +3,24 @@ import { createTestingPinia } from "@pinia/testing";
 import { useRouter } from "vue-router";
 vi.mock("vue-router");
 import JobFiltersGroup from "@/components/JobResults/JobFiltersGroup.vue";
+import type { Mock } from "vitest";
 
+const useMockRouter = useRouter as Mock;
 describe("JobFiltersGroup", () => {
-  const createProps = (props = {}) => ({
+  type FilterGroup = {
+    header: string;
+    uniqueValues: Set<string>;
+    action: Mock;
+  };
+
+  const createProps = (props: Partial<FilterGroup> = {}): FilterGroup => ({
     header: "Some header",
     uniqueValues: new Set(["ValueA", "ValueB"]),
     action: vi.fn(),
     ...props,
   });
 
-  const renderJobFiltersGroup = (props) => {
+  const renderJobFiltersGroup = (props: FilterGroup) => {
     const pinia = createTestingPinia();
 
     render(JobFiltersGroup, {
@@ -43,7 +51,7 @@ describe("JobFiltersGroup", () => {
 
   describe("when user clicks checkbox", () => {
     it("communicates that user has selected checkbox for value", async () => {
-      useRouter.mockReturnValue({ push: vi.fn() });
+      useMockRouter.mockReturnValue({ push: vi.fn() });
       const action = vi.fn();
       const props = createProps({
         header: "Job Types",
@@ -65,7 +73,7 @@ describe("JobFiltersGroup", () => {
 
     it("navigates user to job results page to see fresh batch of filtered jobs", async () => {
       const push = vi.fn();
-      useRouter.mockReturnValue({ push });
+      useMockRouter.mockReturnValue({ push });
       const props = createProps({
         header: "Job Types",
         uniqueValues: new Set(["Full-time"]),

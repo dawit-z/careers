@@ -4,7 +4,7 @@ import axios from "axios";
 
 import { useJobsStore } from "@/stores/jobs";
 import { useUserStore } from "@/stores/user";
-import type { Job } from "@/api/types";
+import { createJob } from "../../utils/createJob";
 
 vi.mock("axios");
 const axiosGetMock = axios.get as Mock;
@@ -36,20 +36,6 @@ describe("actions", () => {
 });
 
 describe("getters", () => {
-  const createJob = (job: Partial<Job> = {}): Job => ({
-    id: 1,
-    title: "Angular Developer",
-    organization: "Vue and Me",
-    degree: "Master's",
-    jobType: "Intern",
-    locations: ["Lisbon"],
-    minimumQualifications: ["Mesh"],
-    preferredQualifications: ["Mesh"],
-    description: ["Awww"],
-    dateAdded: "2021-07-04",
-    ...job,
-  });
-
   beforeEach(() => {
     setActivePinia(createPinia());
   });
@@ -87,9 +73,8 @@ describe("getters", () => {
         userStore.selectedOrganizations = [];
         const store = useJobsStore();
         const job = createJob({ organization: "Google" });
-
-        const result = store.includeJobByOrganization(job);
-        expect(result.value).toBe(true);
+        const result = store.includeJobByOrganization()(job);
+        expect(result).toBe(true);
       });
     });
 
@@ -99,8 +84,8 @@ describe("getters", () => {
       const store = useJobsStore();
       const job = createJob({ organization: "Google" });
 
-      const result = store.includeJobByOrganization(job);
-      expect(result.value).toBe(true);
+      const result = store.includeJobByOrganization()(job);
+      expect(result).toBe(true);
     });
   });
 
@@ -112,8 +97,8 @@ describe("getters", () => {
         const store = useJobsStore();
         const job = createJob({ jobType: "Full-time" });
 
-        const result = store.includeJobByOrganization(job);
-        expect(result.value).toBe(true);
+        const result = store.includeJobByOrganization()(job);
+        expect(result).toBe(true);
       });
     });
 
@@ -123,8 +108,8 @@ describe("getters", () => {
       const store = useJobsStore();
       const job = createJob({ jobType: "Part-time" });
 
-      const result = store.includeJobByJobType(job);
-      expect(result.value).toBe(true);
+      const result = store.includeJobByJobType()(job);
+      expect(result).toBe(true);
     });
   });
 });

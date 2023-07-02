@@ -5,7 +5,7 @@
       role="button"
       @click="open"
     >
-      <h3 class="text-base font-semibold">{{ props.header }}</h3>
+      <h3 class="text-base font-semibold">{{ header }}</h3>
       <font-awesome-icon :icon="caretIcon" />
     </div>
 
@@ -17,10 +17,10 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed } from "vue";
 
-const props = defineProps({
+defineProps({
   header: {
     type: String,
     required: true,

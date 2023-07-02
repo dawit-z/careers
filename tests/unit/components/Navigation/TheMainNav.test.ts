@@ -1,15 +1,18 @@
 import { render, screen, fireEvent } from "@testing-library/vue";
 import { RouterLinkStub } from "@vue/test-utils";
+import type { Mock } from "vitest";
 import { createTestingPinia } from "@pinia/testing";
-import TheMainNav from "@/components/Navigation/TheMainNav.vue";
 import { useUserStore } from "@/stores/user";
+import TheMainNav from "@/components/Navigation/TheMainNav.vue";
 
 import { useRoute } from "vue-router";
 vi.mock("vue-router");
 
+const useRouteMock = useRoute as Mock;
+
 describe("TheMainNav", () => {
   const renderMainNav = () => {
-    useRoute.mockReturnValue({ name: "Home" });
+    useRouteMock.mockReturnValue({ name: "Home" });
     const pinia = createTestingPinia();
 
     render(TheMainNav, {

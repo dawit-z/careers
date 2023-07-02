@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import JobFilters from "@/components/JobResults/JobFilters.vue";
 import JobListings from "@/components/JobResults/JobListings.vue";
 </script>

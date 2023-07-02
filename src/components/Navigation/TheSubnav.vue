@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useJobsStore } from "@/stores/jobs";
 import { useRoute } from "vue-router";
 import { computed } from "vue";

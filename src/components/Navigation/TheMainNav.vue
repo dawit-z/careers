@@ -27,24 +27,25 @@
         </nav>
 
         <div class="ml-auto flex h-full items-center">
-          <ProfileImage v-if="userStore.isLoggedIn" />
+          <ProfileImage v-if="isLoggedIn" />
           <ActionButton v-else text="Sign in" @click="userStore.loginUser" />
         </div>
       </div>
 
-      <TheSubnav v-if="userStore.isLoggedIn" />
+      <TheSubnav v-if="isLoggedIn" />
     </div>
   </header>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { computed, ref } from "vue";
 import { useUserStore } from "@/stores/user";
 import ActionButton from "@/components/Shared/ActionButton.vue";
 import ProfileImage from "@/components/Navigation/ProfileImage.vue";
 import TheSubnav from "@/components/Navigation/TheSubnav.vue";
-import { computed, ref } from "vue";
 
 const userStore = useUserStore();
+const isLoggedIn = computed(() => userStore.isLoggedIn);
 
 const menuItems = ref([
   { text: "Teams", url: "/teams" },
@@ -55,10 +56,8 @@ const menuItems = ref([
   { text: "Jobs", url: "/jobs/results" },
 ]);
 
-const headerHeight = computed(() => {
-  return {
-    "h-16": !userStore.isLoggedIn,
-    "h-32": userStore.isLoggedIn,
-  };
-});
+const headerHeight = computed(() => ({
+  "h-16": !isLoggedIn.value,
+  "h-32": isLoggedIn.value,
+}));
 </script>

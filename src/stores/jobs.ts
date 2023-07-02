@@ -23,31 +23,37 @@ export const useJobsStore = defineStore("jobs", () => {
     return uniqueJobTypes;
   });
 
-  const includeJobByOrganization = (job: Job) =>
-    computed(() => {
-      const userStore = useUserStore();
-      if (userStore.selectedOrganizations.length === 0) return true;
-      return userStore.selectedOrganizations.includes(job.organization);
-    });
-
-  const includeJobByJobType = (job: Job) =>
-    computed(() => {
-      const userStore = useUserStore();
-      if (userStore.selectedJobTypes.length === 0) return true;
-      return userStore.selectedJobTypes.includes(job.jobType);
-    });
-
   const filteredJobs = computed(() => {
     return jobs.value
-      .filter((job) => includeJobByOrganization(job))
-      .filter((job) => includeJobByJobType(job));
+      .filter(() => includeJobByOrganization())
+      .filter(() => includeJobByJobType())
+      .filter(() => includeJobByDegree());
   });
+
+  const includeJobByOrganization = () => (job: Job) => {
+    const userStore = useUserStore();
+    if (userStore.selectedOrganizations.length === 0) return true;
+    return userStore.selectedOrganizations.includes(job.organization);
+  };
+
+  const includeJobByJobType = () => (job: Job) => {
+    const userStore = useUserStore();
+    if (userStore.selectedOrganizations.length === 0) return true;
+    return userStore.selectedOrganizations.includes(job.jobType);
+  };
+
+  const includeJobByDegree = () => (job: Job) => {
+    const userStore = useUserStore();
+    if (userStore.selectedJobTypes.length === 0) return true;
+    return userStore.selectedJobTypes.includes(job.degree);
+  };
 
   return {
     jobs,
     fetchJobs,
     includeJobByJobType,
     includeJobByOrganization,
+    includeJobByDegree,
     uniqueJobTypes,
     uniqueOrganizations,
     filteredJobs,

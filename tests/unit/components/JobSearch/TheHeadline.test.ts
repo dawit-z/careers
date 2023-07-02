@@ -1,9 +1,8 @@
 import { screen, render } from "@testing-library/vue";
 import TheHeadline from "@/components/JobSearch/TheHeadline.vue";
 import { nextTick } from "vue";
-import { vi } from "vitest";
 
-describe.skip("TheHeadline", () => {
+describe("TheHeadline", () => {
   beforeEach(() => {
     vi.useFakeTimers();
   });
@@ -21,11 +20,11 @@ describe.skip("TheHeadline", () => {
   });
 
   it("changes action verb at an interval", () => {
-    const setInterval = vi.fn();
-    vi.stubGlobal("setInterval", setInterval);
+    const mock = vi.fn();
+    vi.stubGlobal("setInterval", mock);
     render(TheHeadline);
 
-    expect(setInterval).toHaveBeenCalled();
+    expect(mock).toHaveBeenCalled();
   });
 
   it("swaps action verb after interval", async () => {
@@ -47,5 +46,6 @@ describe.skip("TheHeadline", () => {
     unmount();
 
     expect(clearInterval).toHaveBeenCalled();
+    vi.unstubAllGlobals();
   });
 });

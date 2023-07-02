@@ -52,15 +52,13 @@
   </li>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import type { Job } from "@/api/types";
 import { computed } from "vue";
 
-const props = defineProps({
-  job: {
-    type: Object,
-    required: true,
-  },
-});
+const props = defineProps<{
+  job: Job;
+}>();
 
 const jobPageLink = computed(() => `/jobs/results/${props.job.id}`);
 </script>

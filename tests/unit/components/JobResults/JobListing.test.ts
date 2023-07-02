@@ -1,47 +1,41 @@
 import { render, screen } from "@testing-library/vue";
 import JobListing from "@/components/JobResults/JobListing.vue";
 import { RouterLinkStub } from "@vue/test-utils";
+import type { Job } from "@/api/types";
+import { createJob } from "../../../utils/createJob";
 
 describe("JobListing", () => {
-  const createJobProps = (jobProps = {}) => ({
-    title: "Vue Developer",
-    organization: "Stripe",
-    locations: ["Dayton"],
-    minimumQualifications: ["Diploma"],
-    ...jobProps,
-  });
-
-  const renderJobListing = (jobProps) => {
+  const renderJobListing = (job: Job) => {
     render(JobListing, {
       global: { stubs: { "router-link": RouterLinkStub } },
-      props: { job: { ...jobProps } },
+      props: { job: { ...job } },
     });
   };
 
   it("renders job title", () => {
-    const jobProps = createJobProps({ title: "React Programmer" });
-    renderJobListing(jobProps);
+    const job = createJob({ title: "React Programmer" });
+    renderJobListing(job);
     expect(screen.getByText("React Programmer")).toBeInTheDocument();
   });
 
   it("renders job organization", () => {
-    const jobProps = createJobProps({ organization: "Microsoft" });
-    renderJobListing(jobProps);
+    const job = createJob({ organization: "Microsoft" });
+    renderJobListing(job);
     expect(screen.getByText("Microsoft")).toBeInTheDocument();
   });
 
   it("renders job locations", () => {
-    const jobProps = createJobProps({ locations: ["Miami", "Orlando"] });
-    renderJobListing(jobProps);
+    const job = createJob({ locations: ["Miami", "Orlando"] });
+    renderJobListing(job);
     expect(screen.getByText("Miami")).toBeInTheDocument();
     expect(screen.getByText("Orlando")).toBeInTheDocument();
   });
 
   it("renders job qualifications", () => {
-    const jobProps = createJobProps({
+    const job = createJob({
       minimumQualifications: ["Code", "Develop"],
     });
-    renderJobListing(jobProps);
+    renderJobListing(job);
     expect(screen.getByText("Code")).toBeInTheDocument();
     expect(screen.getByText("Develop")).toBeInTheDocument();
   });

@@ -45,7 +45,7 @@
   </main>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import TheHeadline from "@/components/JobSearch/TheHeadline.vue";
 import JobSearchForm from "@/components/JobSearch/JobSearchForm.vue";
 import SpotLight from "@/components/JobSearch/SpotLight.vue";

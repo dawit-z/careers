@@ -12,6 +12,6 @@
   </HeaderContainer>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import HeaderContainer from "@/components/Shared/HeaderContainer.vue";
 </script>
