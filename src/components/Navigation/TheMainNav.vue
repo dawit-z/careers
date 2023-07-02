@@ -27,53 +27,38 @@
         </nav>
 
         <div class="ml-auto flex h-full items-center">
-          <ProfileImage v-if="isLoggedIn" />
-          <ActionButton v-else text="Sign in" @click="loginUser" />
+          <ProfileImage v-if="userStore.isLoggedIn" />
+          <ActionButton v-else text="Sign in" @click="userStore.loginUser" />
         </div>
       </div>
 
-      <TheSubnav v-if="isLoggedIn" />
+      <TheSubnav v-if="userStore.isLoggedIn" />
     </div>
   </header>
 </template>
 
-<script>
-import { mapActions, mapState } from "pinia";
+<script setup>
 import { useUserStore } from "@/stores/user";
 import ActionButton from "@/components/Shared/ActionButton.vue";
 import ProfileImage from "@/components/Navigation/ProfileImage.vue";
 import TheSubnav from "@/components/Navigation/TheSubnav.vue";
+import { computed, ref } from "vue";
 
-export default {
-  name: "TheMainNav",
-  components: {
-    ActionButton,
-    ProfileImage,
-    TheSubnav,
-  },
-  data() {
-    return {
-      menuItems: [
-        { text: "Teams", url: "/teams" },
-        { text: "Locations", url: "/" },
-        { text: "Life at Bobo Corp", url: "/" },
-        { text: "How we hire", url: "/" },
-        { text: "Students", url: "/" },
-        { text: "Jobs", url: "/jobs/results" },
-      ],
-    };
-  },
-  computed: {
-    ...mapState(useUserStore, ["isLoggedIn"]),
-    headerHeight() {
-      return {
-        "h-16": !this.isLoggedIn,
-        "h-32": this.isLoggedIn,
-      };
-    },
-  },
-  methods: {
-    ...mapActions(useUserStore, ["loginUser"]),
-  },
-};
+const userStore = useUserStore();
+
+const menuItems = ref([
+  { text: "Teams", url: "/teams" },
+  { text: "Locations", url: "/" },
+  { text: "Life at Bobo Corp", url: "/" },
+  { text: "How we hire", url: "/" },
+  { text: "Students", url: "/" },
+  { text: "Jobs", url: "/jobs/results" },
+]);
+
+const headerHeight = computed(() => {
+  return {
+    "h-16": !userStore.isLoggedIn,
+    "h-32": userStore.isLoggedIn,
+  };
+});
 </script>

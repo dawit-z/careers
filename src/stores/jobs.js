@@ -18,14 +18,25 @@ export const useJobsStore = defineStore("jobs", {
       state.jobs.forEach((job) => uniqueOrganizations.add(job.organization));
       return uniqueOrganizations;
     },
-    filteredJobsByOrganization(state) {
+    uniqueJobTypes(state) {
+      const uniqueJobTypes = new Set();
+      state.jobs.forEach((job) => uniqueJobTypes.add(job.jobType));
+      return uniqueJobTypes;
+    },
+    includeJobByOrganization: () => (job) => {
       const userStore = useUserStore();
-
-      if (!userStore.selectedOrganizations.length) return state.jobs;
-
-      return state.jobs.filter((job) =>
-        userStore.selectedOrganizations.includes(job.organization)
-      );
+      if (userStore.selectedOrganizations.length === 0) return true;
+      return userStore.selectedOrganizations.includes(job.organization);
+    },
+    includeJobByJobType: () => (job) => {
+      const userStore = useUserStore();
+      if (userStore.selectedJobTypes.length === 0) return true;
+      return userStore.selectedJobTypes.includes(job.jobType);
+    },
+    filteredJobs(state) {
+      return state.jobs
+        .filter((job) => this.includeJobByOrganization(job))
+        .filter((job) => this.includeJobByJobType(job));
     },
   },
 });

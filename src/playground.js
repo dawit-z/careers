@@ -1,13 +1,13 @@
-// Arrays - order
-// Objects - association
-// Set - uniqueness
+const { computed, reactive, toRefs } = require("vue");
 
-const arr = [];
+const person = reactive({
+  firstName: "Dawit",
+  lastName: "Zewelday",
+});
 
-const num = new Set();
+const { firstName, lastName } = toRefs(person);
+const name = computed(() => `${firstName.value} ${lastName.value} the Great`);
 
-num.add({ name: "Dawit" });
-num.add({ name: "Dawit" });
-num.add({ name: "Sam" });
-
-console.log(num);
+console.log(name.value);
+person.firstName = "Michael";
+console.log(name.value);

@@ -5,7 +5,7 @@
         <font-awesome-icon :icon="['fas', 'search']" class="mr-3" />
         <span
           ><span class="text-brand-green-1">{{
-            filteredJobsByOrganization.length
+            jobsStore.filteredJobs.length
           }}</span>
           jobs matched</span
         >
@@ -14,17 +14,12 @@
   </div>
 </template>
 
-<script>
-import { mapState } from "pinia";
+<script setup>
 import { useJobsStore } from "@/stores/jobs";
+import { useRoute } from "vue-router";
+import { computed } from "vue";
 
-export default {
-  name: "TheSubnav",
-  computed: {
-    ...mapState(useJobsStore, ["filteredJobsByOrganization"]),
-    onJobResultsPage() {
-      return this.$route.name === "JobResults";
-    },
-  },
-};
+const jobsStore = useJobsStore();
+const route = useRoute();
+const onJobResultsPage = computed(() => route.name === "JobResults");
 </script>

@@ -11,21 +11,28 @@
       </div>
 
       <CollapsibleAccordion header="Degree"></CollapsibleAccordion>
-
-      <CollapsibleAccordion header="Job types"></CollapsibleAccordion>
-
-      <JobFiltersOrganizations />
+      <JobFiltersGroup
+        header="Job Types"
+        :unique-values="jobsStore.uniqueJobTypes"
+        :action="userStore.addSelectedJobTypes"
+      />
+      <JobFiltersGroup
+        header="Job Types"
+        :unique-values="jobsStore.uniqueOrganizations"
+        :action="userStore.addSelectedOrganizations"
+      />
     </section>
   </div>
 </template>
 
-<script>
+<script setup>
 import ActionButton from "@/components/Shared/ActionButton.vue";
 import CollapsibleAccordion from "@/components/Shared/CollapsibleAccordion.vue";
-import JobFiltersOrganizations from "@/components/JobResults/JobFiltersOrganizations.vue";
+import JobFiltersGroup from "@/components/JobResults/JobFiltersGroup.vue";
 
-export default {
-  name: "JobResults",
-  components: { ActionButton, CollapsibleAccordion, JobFiltersOrganizations },
-};
+import { useJobsStore } from "@/stores/jobs";
+import { useUserStore } from "@/stores/user";
+
+const jobsStore = useJobsStore();
+const userStore = useUserStore();
 </script>

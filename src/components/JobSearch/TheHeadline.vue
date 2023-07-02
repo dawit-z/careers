@@ -9,37 +9,28 @@
   </section>
 </template>
 
-<script>
+<script setup>
 import nextElementInList from "@/utils/nextElementInList";
+import { onMounted, onUnmounted, computed, ref } from "vue";
 
-export default {
-  name: "TheHeadline",
-  data: () => ({
-    action: "Build",
-    interval: null,
-  }),
-  computed: {
-    actionClass() {
-      return {
-        [this.action.toLowerCase()]: true,
-      };
-    },
-  },
-  created() {
-    this.changeTitle();
-  },
-  beforeUnmount() {
-    clearInterval(this.interval);
-  },
-  methods: {
-    changeTitle() {
-      this.interval = setInterval(() => {
-        const actions = ["Build", "Create", "Design", "Code"];
-        this.action = nextElementInList(actions, this.action);
-      }, 3000);
-    },
-  },
-};
+const action = ref("Build");
+const interval = ref(null);
+
+const actionClass = computed(() => {
+  return {
+    [action.value.toLowerCase()]: true,
+  };
+});
+
+onMounted(() => changeTitle);
+onUnmounted(() => clearInterval(interval));
+
+function changeTitle() {
+  interval.value = setInterval(() => {
+    const actions = ["Build", "Create", "Design", "Code"];
+    action.value = nextElementInList(actions, action);
+  }, 3000);
+}
 </script>
 
 <style scoped>

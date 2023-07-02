@@ -83,7 +83,7 @@ describe("JobListings", () => {
       expect(previousLink).not.toBeInTheDocument();
     });
 
-    it("shows next button", async () => {
+    it("shows the next button", async () => {
       const queryParams = { page: 1 };
       const $route = createRoute(queryParams);
 
