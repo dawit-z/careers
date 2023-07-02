@@ -4,9 +4,7 @@
       <div v-if="onJobResultsPage">
         <font-awesome-icon :icon="['fas', 'search']" class="mr-3" />
         <span
-          ><span class="text-brand-green-1">{{
-            jobsStore.filteredJobs.length
-          }}</span>
+          ><span class="text-brand-green-1">{{ filteredJobs.length }}</span>
           jobs matched</span
         >
       </div>
@@ -22,4 +20,5 @@ import { computed } from "vue";
 const jobsStore = useJobsStore();
 const route = useRoute();
 const onJobResultsPage = computed(() => route.name === "JobResults");
+const filteredJobs = computed(() => jobsStore.filteredJobs);
 </script>

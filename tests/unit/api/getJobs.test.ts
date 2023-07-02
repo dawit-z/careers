@@ -1,11 +1,15 @@
+import type { Mock } from "vitest";
 import axios from "axios";
-vi.mock("axios");
-
 import getJobs from "@/api/getJobs";
+
+vi.mock("axios");
+const axiosGetMock = axios.get as Mock;
 
 describe("getJobs", () => {
   beforeEach(() => {
-    axios.get.mockResolvedValue({ data: [{ id: 1, title: "Vue Developer" }] });
+    axiosGetMock.mockResolvedValue({
+      data: [{ id: 1, title: "Vue Developer" }],
+    });
   });
 
   it("fetches and extracts jobs from response", async () => {

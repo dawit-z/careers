@@ -6,7 +6,6 @@ describe("nextElementInList", () => {
     const value = "C";
 
     const result = nextElementInList(list, value);
-
     expect(result).toBe("D");
   });
 
@@ -16,7 +15,6 @@ describe("nextElementInList", () => {
       const value = "E";
 
       const result = nextElementInList(list, value);
-
       expect(result).toBe("A");
     });
   });

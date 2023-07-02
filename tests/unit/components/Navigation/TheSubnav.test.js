@@ -1,22 +1,20 @@
 import { render, screen } from "@testing-library/vue";
 import { createTestingPinia } from "@pinia/testing";
 
+import { useRoute } from "vue-router";
+vi.mock("vue-router");
+
 import TheSubnav from "@/components/Navigation/TheSubnav.vue";
 import { useJobsStore } from "@/stores/jobs";
 
 describe("TheSubnav", () => {
-  const renderTheSubnav = (routeName) => {
+  const renderTheSubnav = () => {
     const pinia = createTestingPinia();
     const jobsStore = useJobsStore();
 
     render(TheSubnav, {
       global: {
         plugins: [pinia],
-        mocks: {
-          $route: {
-            name: routeName,
-          },
-        },
         stubs: {
           FontAwesomeIcon: true,
         },
@@ -28,22 +26,26 @@ describe("TheSubnav", () => {
 
   describe("when user is on jobs page", () => {
     it("displays job count", async () => {
-      const { jobsStore } = renderTheSubnav("JobResults");
-      const numOfJobs = 16;
-      jobsStore.filteredJobsByOrganization = Array(numOfJobs).fill({});
+      useRoute.mockReturnValue({ name: "JobResults" });
 
-      const jobCount = await screen.findByText(numOfJobs);
+      const { jobsStore } = renderTheSubnav();
+      const numberOfJobs = 16;
+      jobsStore.filteredJobs = Array(numberOfJobs).fill({});
+
+      const jobCount = await screen.findByText(numberOfJobs);
       expect(jobCount).toBeInTheDocument();
     });
   });
 
   describe("when user is not on jobs page", () => {
-    it("does NOT display job count", async () => {
-      const { jobsStore } = renderTheSubnav("Home");
-      const numOfJobs = 16;
-      jobsStore.filteredJobsByOrganization = Array(numOfJobs).fill({});
+    it("does NOT display job count", () => {
+      useRoute.mockReturnValue({ name: "Home" });
 
-      const jobCount = screen.queryByText(numOfJobs);
+      const { jobsStore } = renderTheSubnav();
+      const numberOfJobs = 16;
+      jobsStore.filteredJobs = Array(numberOfJobs).fill({});
+
+      const jobCount = screen.queryByText(numberOfJobs);
       expect(jobCount).not.toBeInTheDocument();
     });
   });

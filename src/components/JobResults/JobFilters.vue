@@ -13,12 +13,12 @@
       <CollapsibleAccordion header="Degree"></CollapsibleAccordion>
       <JobFiltersGroup
         header="Job Types"
-        :unique-values="jobsStore.uniqueJobTypes"
+        :unique-values="uniqueJobTypes"
         :action="userStore.addSelectedJobTypes"
       />
       <JobFiltersGroup
-        header="Job Types"
-        :unique-values="jobsStore.uniqueOrganizations"
+        header="Organizations"
+        :unique-values="uniqueOrganizations"
         :action="userStore.addSelectedOrganizations"
       />
     </section>
@@ -34,5 +34,8 @@ import { useJobsStore } from "@/stores/jobs";
 import { useUserStore } from "@/stores/user";
 
 const jobsStore = useJobsStore();
+const uniqueOrganizations = computed(() => jobsStore.uniqueOrganizations);
+const uniqueJobTypes = computed(() => jobsStore.jobTypes);
+
 const userStore = useUserStore();
 </script>

@@ -4,7 +4,7 @@ import { useRouter } from "vue-router";
 vi.mock("vue-router");
 import JobFiltersGroup from "@/components/JobResults/JobFiltersGroup.vue";
 
-describe("JobFiltersOrganization", () => {
+describe("JobFiltersGroup", () => {
   const createProps = (props = {}) => ({
     header: "Some header",
     uniqueValues: new Set(["ValueA", "ValueB"]),
@@ -12,7 +12,7 @@ describe("JobFiltersOrganization", () => {
     ...props,
   });
 
-  const renderSidebar = (props) => {
+  const renderJobFiltersGroup = (props) => {
     const pinia = createTestingPinia();
 
     render(JobFiltersGroup, {
@@ -31,14 +31,14 @@ describe("JobFiltersOrganization", () => {
       header: "Job Types",
       uniqueValues: new Set(["Full-time", "Part-time"]),
     });
-    renderSidebar(props);
+    renderJobFiltersGroup(props);
 
     const button = screen.getByRole("button", { name: /job types/i });
     await fireEvent.click(button);
 
     const orgListItems = screen.getAllByRole("listitem");
     const orgs = orgListItems.map((node) => node.textContent);
-    expect(orgs).toEqual(["Google", "Apple"]);
+    expect(orgs).toEqual(["Full-time", "Part-time"]);
   });
 
   describe("when user clicks checkbox", () => {
@@ -50,7 +50,7 @@ describe("JobFiltersOrganization", () => {
         uniqueValues: new Set(["Full-time", "Part-time"]),
         action,
       });
-      renderSidebar(props);
+      renderJobFiltersGroup(props);
 
       const button = screen.getByRole("button", { name: /job types/i });
       await fireEvent.click(button);
@@ -70,7 +70,7 @@ describe("JobFiltersOrganization", () => {
         header: "Job Types",
         uniqueValues: new Set(["Full-time"]),
       });
-      renderSidebar(props);
+      renderJobFiltersGroup(props);
 
       const button = screen.getByRole("button", { name: /job types/i });
       await fireEvent.click(button);

@@ -38,7 +38,7 @@ describe("actions", () => {
   describe("addSelectedOrganization", () => {
     it("updates orgs that the user has selected to filter by", () => {
       const store = useUserStore();
-      store.addSelectedOrganization(["Org1", "Org2"]);
+      store.addSelectedOrganizations(["Org1", "Org2"]);
 
       expect(store.selectedOrganizations).toEqual(["Org1", "Org2"]);
     });
