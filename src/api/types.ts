@@ -1,4 +1,4 @@
-export interface Job {
+export type Job = {
   id: number;
   title: string;
   organization: string;
@@ -9,7 +9,7 @@ export interface Job {
   preferredQualifications: string[];
   description: string[];
   dateAdded: string;
-}
+};
 
 export type Degree = {
   id: number;

@@ -7,9 +7,9 @@ export const useUserStore = defineStore("user", () => {
   const selectedJobTypes = ref<string[]>([]);
   const selectedDegrees = ref<string[]>([]);
 
-  function loginUser() {
+  const loginUser = () => {
     isLoggedIn.value = true;
-  }
+  };
 
   function addSelectedOrganizations(organizations: string[]) {
     selectedOrganizations.value = organizations;
@@ -23,9 +23,16 @@ export const useUserStore = defineStore("user", () => {
     selectedJobTypes.value = selectedDegrees;
   }
 
+  const clear = () => {
+    selectedDegrees.value = [];
+    selectedJobTypes.value = [];
+    selectedOrganizations.value = [];
+  };
+
   return {
     isLoggedIn,
     selectedJobTypes,
+    clear,
     selectedOrganizations,
     selectedDegrees,
     loginUser,

@@ -73,7 +73,7 @@ describe("getters", () => {
         userStore.selectedOrganizations = [];
         const store = useJobsStore();
         const job = createJob({ organization: "Google" });
-        const result = store.includeJobByOrganization()(job);
+        const result = store.includeJobByOrganization(job);
         expect(result).toBe(true);
       });
     });
@@ -84,7 +84,7 @@ describe("getters", () => {
       const store = useJobsStore();
       const job = createJob({ organization: "Google" });
 
-      const result = store.includeJobByOrganization()(job);
+      const result = store.includeJobByOrganization(job);
       expect(result).toBe(true);
     });
   });
@@ -97,7 +97,7 @@ describe("getters", () => {
         const store = useJobsStore();
         const job = createJob({ jobType: "Full-time" });
 
-        const result = store.includeJobByOrganization()(job);
+        const result = store.includeJobByOrganization(job);
         expect(result).toBe(true);
       });
     });
@@ -108,7 +108,7 @@ describe("getters", () => {
       const store = useJobsStore();
       const job = createJob({ jobType: "Part-time" });
 
-      const result = store.includeJobByJobType()(job);
+      const result = store.includeJobByJobType(job);
       expect(result).toBe(true);
     });
   });
