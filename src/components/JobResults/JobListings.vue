@@ -40,6 +40,7 @@ import { useDegreesStore } from "@/stores/degrees";
 
 const jobsStore = useJobsStore();
 onMounted(jobsStore.fetchJobs);
+
 const degreesStore = useDegreesStore();
 onMounted(degreesStore.fetchDegrees);
 

@@ -1,4 +1,4 @@
-import getDegrees from "@/api/getDegrees";
+import { getDegrees } from "@/api";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import type { Degree } from "@/api/types";

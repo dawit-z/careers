@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import getJobs from "@/api/getJobs";
+import { getJobs } from "@/api";
 import { useUserStore } from "@/stores/user";
 import { computed, ref } from "vue";
 import type { Job } from "@/api/types";
@@ -16,9 +16,7 @@ export const useJobsStore = defineStore("jobs", () => {
   });
 
   const uniqueJobTypes = computed(() => {
-    const uniqueJobTypes = new Set<string>();
-    jobs.value.forEach((job) => uniqueJobTypes.add(job.jobType));
-    return uniqueJobTypes;
+    return [...new Set(jobs.value.map((job) => job.jobType))];
   });
 
   const filteredJobs = computed(() => {

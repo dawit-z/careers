@@ -11,9 +11,9 @@ export const useUserStore = defineStore("user", () => {
     isLoggedIn.value = true;
   };
 
-  function addSelectedOrganizations(organizations: string[]) {
+  const addSelectedOrganizations = (organizations: string[]) => {
     selectedOrganizations.value = organizations;
-  }
+  };
 
   function addSelectedJobTypes(jobTypes: string[]) {
     selectedJobTypes.value = jobTypes;
@@ -23,11 +23,11 @@ export const useUserStore = defineStore("user", () => {
     selectedJobTypes.value = selectedDegrees;
   }
 
-  const clear = () => {
+  function clear() {
     selectedDegrees.value = [];
     selectedJobTypes.value = [];
     selectedOrganizations.value = [];
-  };
+  }
 
   return {
     isLoggedIn,
