@@ -1,13 +1,36 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "tests/**/*"],
-  "exclude": [],
   "compilerOptions": {
-    "composite": true,
+    "target": "ESNext",
+    "jsx": "preserve",
+    "lib": [
+      "DOM",
+      "ESNext"
+    ],
     "baseUrl": ".",
+    "module": "ESNext",
+    "moduleResolution": "node",
     "paths": {
-      "@/*": ["./src/*"]
+      "~/*": [
+        "src/*"
+      ]
     },
-    "types": ["vitest/globals", "@testing-library/jest-dom"]
-  }
+    "resolveJsonModule": true,
+    "types": [
+      "vitest/globals",
+      "@testing-library/jest-dom"
+    ],
+    "allowJs": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "skipLibCheck": true
+  },
+  "exclude": [
+    "dist",
+    "node_modules",
+    "cypress"
+  ]
 }

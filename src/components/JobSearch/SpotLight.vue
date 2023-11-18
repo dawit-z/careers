@@ -1,18 +1,14 @@
 <template>
   <ul>
     <li v-for="spotlight in spotlights" :key="spotlight.id">
-      <slot
-        :img="spotlight.img"
-        :title="spotlight.title"
-        :description="spotlight.description"
-      ></slot>
+      <slot :img="spotlight.img" :title="spotlight.title" :description="spotlight.description" />
     </li>
   </ul>
 </template>
 
 <script setup lang="ts">
 import axios from "axios";
-import { ref, onMounted } from "vue";
+import { onMounted, ref } from "vue";
 
 interface Spotlight {
   id: number;

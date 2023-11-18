@@ -61,6 +61,7 @@ const displayedJobs = computed(() => {
   const pageNumber = currentPage.value;
   const firstJobIndex = (pageNumber - 1) * 10;
   const lastJobIndex = pageNumber * 10;
+
   return filteredJobs.value.slice(firstJobIndex, lastJobIndex);
 });
 </script>
