@@ -1,19 +1,19 @@
-import { render, screen, fireEvent } from "@testing-library/vue";
-import { RouterLinkStub } from "@vue/test-utils";
-import type { Mock } from "vitest";
-import { createTestingPinia } from "@pinia/testing";
-import { useUserStore } from "@/stores/user";
-import TheMainNav from "@/components/Navigation/TheMainNav.vue";
+import { fireEvent, render, screen } from '@testing-library/vue'
+import { RouterLinkStub } from '@vue/test-utils'
+import type { Mock } from 'vitest'
+import { createTestingPinia } from '@pinia/testing'
+import { useRoute } from 'vue-router'
+import { useUserStore } from '@/stores/user'
+import TheMainNav from '@/components/Navigation/TheMainNav.vue'
 
-import { useRoute } from "vue-router";
-vi.mock("vue-router");
+vi.mock('vue-router')
 
-const useRouteMock = useRoute as Mock;
+const useRouteMock = useRoute as Mock
 
-describe("TheMainNav", () => {
+describe('theMainNav', () => {
   const renderMainNav = () => {
-    useRouteMock.mockReturnValue({ name: "Home" });
-    const pinia = createTestingPinia();
+    useRouteMock.mockReturnValue({ name: 'Home' })
+    const pinia = createTestingPinia()
 
     render(TheMainNav, {
       global: {
@@ -23,51 +23,51 @@ describe("TheMainNav", () => {
           RouterLink: RouterLinkStub,
         },
       },
-    });
-  };
+    })
+  }
 
-  it("displays company name", () => {
-    renderMainNav();
-    const companyName = screen.getByText("Bobo Careers");
-    expect(companyName).toBeInTheDocument();
-  });
+  it('displays company name', () => {
+    renderMainNav()
+    const companyName = screen.getByText('Bobo Careers')
+    expect(companyName).toBeInTheDocument()
+  })
 
-  it("displays menu items for navigation", () => {
-    renderMainNav();
-    const navigationMenuItems = screen.getAllByRole("listitem");
+  it('displays menu items for navigation', () => {
+    renderMainNav()
+    const navigationMenuItems = screen.getAllByRole('listitem')
     const navigationMenuTexts = navigationMenuItems.map(
-      (item) => item.textContent
-    );
+      item => item.textContent,
+    )
     expect(navigationMenuTexts).toEqual([
-      "Teams",
-      "Locations",
-      "Life at Bobo Corp",
-      "How we hire",
-      "Students",
-      "Jobs",
-    ]);
-  });
+      'Teams',
+      'Locations',
+      'Life at Bobo Corp',
+      'How we hire',
+      'Students',
+      'Jobs',
+    ])
+  })
 
-  describe("when the user logs in", () => {
-    it("displays user profile picture", async () => {
-      renderMainNav();
-      const userStore = useUserStore();
+  describe('when the user logs in', () => {
+    it('displays user profile picture', async () => {
+      renderMainNav()
+      const userStore = useUserStore()
 
-      let profileImage = screen.queryByRole("img", {
+      let profileImage = screen.queryByRole('img', {
         name: /user profile image/i,
-      });
-      expect(profileImage).not.toBeInTheDocument();
+      })
+      expect(profileImage).not.toBeInTheDocument()
 
-      const loginButton = screen.getByRole("button", {
+      const loginButton = screen.getByRole('button', {
         name: /sign in/i,
-      });
-      userStore.isLoggedIn = true;
-      await fireEvent.click(loginButton);
+      })
+      userStore.isLoggedIn = true
+      await fireEvent.click(loginButton)
 
-      profileImage = screen.getByRole("img", {
+      profileImage = screen.getByRole('img', {
         name: /user profile image/i,
-      });
-      expect(profileImage).toBeInTheDocument();
-    });
-  });
-});
+      })
+      expect(profileImage).toBeInTheDocument()
+    })
+  })
+})

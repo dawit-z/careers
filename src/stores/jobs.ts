@@ -1,56 +1,55 @@
-import { defineStore } from "pinia";
-import { getJobs } from "@/api";
-import { useUserStore } from "@/stores/user";
-import { computed, ref } from "vue";
-import type { Job } from "@/api/types";
+import { defineStore } from 'pinia'
+import { computed, ref } from 'vue'
+import { getJobs } from '@/api'
+import { useUserStore } from '@/stores/user'
+import type { Job } from '@/api/types'
 
-export const useJobsStore = defineStore("jobs", () => {
-  const jobs = ref<Job[]>([]);
+export const useJobsStore = defineStore('jobs', () => {
+  const jobs = ref<Job[]>([])
 
   async function fetchJobs() {
-    jobs.value = await getJobs();
+    jobs.value = await getJobs()
   }
 
   const uniqueOrganizations = computed(() => {
-    return [...new Set(jobs.value.map((job) => job.organization))];
-  });
+    return [...new Set(jobs.value.map(job => job.organization))]
+  })
 
   const uniqueJobTypes = computed(() => {
-    return [...new Set(jobs.value.map((job) => job.jobType))];
-  });
+    return [...new Set(jobs.value.map(job => job.jobType))]
+  })
+
+  const includeJobByOrganization = (job: Job) => {
+    const userStore = useUserStore()
+
+    if (userStore.selectedOrganizations.length === 0)
+      return true
+    return userStore.selectedOrganizations.includes(job.organization)
+  }
+
+  const includeJobByJobType = (job: Job) => {
+    const userStore = useUserStore()
+
+    if (userStore.selectedOrganizations.length === 0)
+      return true
+    return userStore.selectedOrganizations.includes(job.jobType)
+  }
+
+  const includeJobByDegree = (job: Job) => {
+    const userStore = useUserStore()
+
+    if (userStore.selectedJobTypes.length === 0)
+      return true
+    return userStore.selectedJobTypes.includes(job.degree)
+  }
 
   const filteredJobs = computed(() => {
     return jobs.value
-      .filter((job) => includeJobByOrganization(job))
-      .filter((job) => includeJobByJobType(job))
-      .filter((job) => includeJobByDegree(job));
-  });
+      .filter(job => includeJobByOrganization(job))
+      .filter(job => includeJobByJobType(job))
+      .filter(job => includeJobByDegree(job))
+  })
 
-  const includeJobByOrganization = (job: Job) => {
-    const userStore = useUserStore();
-
-    if (userStore.selectedOrganizations.length === 0) return true;
-    return userStore.selectedOrganizations.includes(job.organization);
-  };
-
-  const includeJobByJobType = (job: Job) => {
-    const userStore = useUserStore();
-
-    if (userStore.selectedOrganizations.length === 0) return true;
-    return userStore.selectedOrganizations.includes(job.jobType);
-  };
-
-  const includeJobByDegree = (job: Job) => {
-    const userStore = useUserStore();
-
-    if (userStore.selectedJobTypes.length === 0) return true;
-    return userStore.selectedJobTypes.includes(job.degree);
-  };
-
-  function includeJob(job: Job, list: string[]) {
-    if (list.length === 0) return true;
-    return list.includes(job.degree);
-  }
 
   return {
     jobs,
@@ -61,5 +60,5 @@ export const useJobsStore = defineStore("jobs", () => {
     uniqueJobTypes,
     uniqueOrganizations,
     filteredJobs,
-  };
-});
+  }
+})

@@ -1,7 +1,13 @@
+<script setup lang="ts">
+import HeaderContainer from '@/components/Shared/HeaderContainer.vue'
+</script>
+
 <template>
   <HeaderContainer>
     <template #title>
-      <h1 class="w-full text-4xl font-normal">Teams</h1>
+      <h1 class="w-full text-4xl font-normal">
+        Teams
+      </h1>
     </template>
 
     <template #subtitle>
@@ -11,7 +17,3 @@
     </template>
   </HeaderContainer>
 </template>
-
-<script setup lang="ts">
-import HeaderContainer from "@/components/Shared/HeaderContainer.vue";
-</script>

@@ -1,5 +1,30 @@
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+import { useUserStore } from '@/stores/user'
+import ActionButton from '@/components/Shared/ActionButton.vue'
+import ProfileImage from '@/components/Navigation/ProfileImage.vue'
+import TheSubnav from '@/components/Navigation/TheSubnav.vue'
+
+const userStore = useUserStore()
+const isLoggedIn = computed(() => userStore.isLoggedIn)
+
+const menuItems = ref([
+  { text: 'Teams', url: '/teams' },
+  { text: 'Locations', url: '/' },
+  { text: 'Life at Bobo Corp', url: '/' },
+  { text: 'How we hire', url: '/' },
+  { text: 'Students', url: '/' },
+  { text: 'Jobs', url: '/jobs/results' },
+])
+
+const headerHeight = computed(() => ({
+  'h-16': !isLoggedIn.value,
+  'h-32': isLoggedIn.value,
+}))
+</script>
+
 <template>
-  <header :class="['w-full', 'text-sm', headerHeight]">
+  <header class="w-full text-sm" :class="[headerHeight]">
     <div class="fixed left-0 top-0 h-16 w-full bg-white">
       <div
         class="mx-auto flex h-full flex-nowrap border-b border-solid border-brand-gray-1 px-8"
@@ -7,7 +32,8 @@
         <router-link
           :to="{ name: 'Home' }"
           class="flex h-full items-center text-xl"
-          >Bobo Careers
+        >
+          Bobo Careers
         </router-link>
 
         <nav class="ml-12 h-full">
@@ -20,8 +46,9 @@
               <router-link
                 :to="menuItem.url"
                 class="flex h-full items-center py-2.5"
-                >{{ menuItem.text }}</router-link
               >
+                {{ menuItem.text }}
+              </router-link>
             </li>
           </ul>
         </nav>
@@ -36,28 +63,3 @@
     </div>
   </header>
 </template>
-
-<script setup lang="ts">
-import { computed, ref } from "vue";
-import { useUserStore } from "@/stores/user";
-import ActionButton from "@/components/Shared/ActionButton.vue";
-import ProfileImage from "@/components/Navigation/ProfileImage.vue";
-import TheSubnav from "@/components/Navigation/TheSubnav.vue";
-
-const userStore = useUserStore();
-const isLoggedIn = computed(() => userStore.isLoggedIn);
-
-const menuItems = ref([
-  { text: "Teams", url: "/teams" },
-  { text: "Locations", url: "/" },
-  { text: "Life at Bobo Corp", url: "/" },
-  { text: "How we hire", url: "/" },
-  { text: "Students", url: "/" },
-  { text: "Jobs", url: "/jobs/results" },
-]);
-
-const headerHeight = computed(() => ({
-  "h-16": !isLoggedIn.value,
-  "h-32": isLoggedIn.value,
-}));
-</script>

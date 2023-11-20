@@ -1,21 +1,21 @@
-import nextElementInList from "@/utils/nextElementInList";
+import nextElementInList from '@/utils/nextElementInList'
 
-describe("nextElementInList", () => {
-  it("returns next element in list", () => {
-    const list = ["A", "B", "C", "D", "E"];
-    const value = "C";
+describe('nextElementInList', () => {
+  it('returns next element in list', () => {
+    const list = ['A', 'B', 'C', 'D', 'E']
+    const value = 'C'
 
-    const result = nextElementInList(list, value);
-    expect(result).toBe("D");
-  });
+    const result = nextElementInList(list, value)
+    expect(result).toBe('D')
+  })
 
-  describe("when element is last on list", () => {
-    it("returns first element in list", () => {
-      const list = ["A", "B", "C", "D", "E"];
-      const value = "E";
+  describe('when element is last on list', () => {
+    it('returns first element in list', () => {
+      const list = ['A', 'B', 'C', 'D', 'E']
+      const value = 'E'
 
-      const result = nextElementInList(list, value);
-      expect(result).toBe("A");
-    });
-  });
-});
+      const result = nextElementInList(list, value)
+      expect(result).toBe('A')
+    })
+  })
+})

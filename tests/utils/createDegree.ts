@@ -1,7 +1,9 @@
-import type { Degree } from "@/api/types";
+import type { Degree } from '@/api/types'
 
-export const createDegree = (degree: Partial<Degree> = {}): Degree => ({
-  id: 1,
-  degree: "Master's",
-  ...degree,
-});
+export function createDegree(degree: Partial<Degree> = {}): Degree {
+  return {
+    id: 1,
+    degree: 'Master\'s',
+    ...degree,
+  }
+}

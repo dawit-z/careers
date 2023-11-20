@@ -31,8 +31,10 @@ const userStore = useUserStore()
       <JobFiltersGroup header="Degrees" :unique-values="uniqueDegrees" :action="userStore.addSelectedDegrees" />
       <JobFiltersGroup header="Job Types" :unique-values="uniqueJobTypes" :action="userStore.addSelectedJobTypes" />
 
-      <JobFiltersGroup header="Organizations" :unique-values="uniqueOrganizations"
-        :action="userStore.addSelectedOrganizations" />
+      <JobFiltersGroup
+        header="Organizations" :unique-values="uniqueOrganizations"
+        :action="userStore.addSelectedOrganizations"
+      />
     </section>
   </div>
 </template>

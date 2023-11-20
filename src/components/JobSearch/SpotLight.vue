@@ -1,3 +1,24 @@
+<script setup lang="ts">
+import axios from 'axios'
+import { onMounted, ref } from 'vue'
+
+interface Spotlight {
+  id: number
+  img: string
+  title: string
+  description: string
+}
+const spotlights = ref<Spotlight[]>([])
+
+async function getSpotlights() {
+  const baseUrl = `${import.meta.env.VITE_APP_API_URL}/spotlights`
+  const response = await axios.get<Spotlight[]>(baseUrl)
+  spotlights.value = response.data
+}
+
+onMounted(getSpotlights)
+</script>
+
 <template>
   <ul>
     <li v-for="spotlight in spotlights" :key="spotlight.id">
@@ -5,24 +26,3 @@
     </li>
   </ul>
 </template>
-
-<script setup lang="ts">
-import axios from "axios";
-import { onMounted, ref } from "vue";
-
-interface Spotlight {
-  id: number;
-  img: string;
-  title: string;
-  description: string;
-}
-const spotlights = ref<Spotlight[]>([]);
-
-async function getSpotlights() {
-  const baseUrl = `${import.meta.env.VITE_APP_API_URL}/spotlights`;
-  const response = await axios.get<Spotlight[]>(baseUrl);
-  spotlights.value = response.data;
-}
-
-onMounted(getSpotlights);
-</script>

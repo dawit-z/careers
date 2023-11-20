@@ -1,11 +1,5 @@
-<template>
-  <button :class="buttonClass">
-    {{ text }}
-  </button>
-</template>
-
 <script setup lang="ts">
-import { computed, toRefs } from "vue";
+import { computed, toRefs } from 'vue'
 
 const props = defineProps({
   text: {
@@ -15,20 +9,26 @@ const props = defineProps({
   type: {
     type: String,
     required: false,
-    default: "primary",
+    default: 'primary',
     validator(value: string) {
-      return ["primary", "secondary"].includes(value);
+      return ['primary', 'secondary'].includes(value)
     },
   },
-});
+})
 
-const { type } = toRefs(props);
+const { type } = toRefs(props)
 const buttonClass = computed(() => {
   return {
     [type.value]: true,
-  };
-});
+  }
+})
 </script>
+
+<template>
+  <button :class="buttonClass">
+    {{ text }}
+  </button>
+</template>
 
 <style scoped>
 button {

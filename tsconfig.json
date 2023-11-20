@@ -23,6 +23,7 @@
     "strict": true,
     "strictNullChecks": true,
     "noUnusedLocals": true,
+    "outDir": "./dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,

@@ -1,32 +1,32 @@
-import { defineStore } from "pinia";
-import { ref } from "vue";
+import { defineStore } from 'pinia'
+import { ref } from 'vue'
 
-export const useUserStore = defineStore("user", () => {
-  const isLoggedIn = ref(false);
-  const selectedOrganizations = ref<string[]>([]);
-  const selectedJobTypes = ref<string[]>([]);
-  const selectedDegrees = ref<string[]>([]);
+export const useUserStore = defineStore('user', () => {
+  const isLoggedIn = ref(false)
+  const selectedOrganizations = ref<string[]>([])
+  const selectedJobTypes = ref<string[]>([])
+  const selectedDegrees = ref<string[]>([])
 
   const loginUser = () => {
-    isLoggedIn.value = true;
-  };
+    isLoggedIn.value = true
+  }
 
   const addSelectedOrganizations = (organizations: string[]) => {
-    selectedOrganizations.value = organizations;
-  };
+    selectedOrganizations.value = organizations
+  }
 
   function addSelectedJobTypes(jobTypes: string[]) {
-    selectedJobTypes.value = jobTypes;
+    selectedJobTypes.value = jobTypes
   }
 
   function addSelectedDegrees(selectedDegrees: string[]) {
-    selectedJobTypes.value = selectedDegrees;
+    selectedJobTypes.value = selectedDegrees
   }
 
   function clear() {
-    selectedDegrees.value = [];
-    selectedJobTypes.value = [];
-    selectedOrganizations.value = [];
+    selectedDegrees.value = []
+    selectedJobTypes.value = []
+    selectedOrganizations.value = []
   }
 
   return {
@@ -39,5 +39,5 @@ export const useUserStore = defineStore("user", () => {
     addSelectedJobTypes,
     addSelectedOrganizations,
     addSelectedDegrees,
-  };
-});
+  }
+})

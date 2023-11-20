@@ -1,8 +1,8 @@
-import { render, screen, fireEvent } from "@testing-library/vue";
+import { fireEvent, render, screen } from '@testing-library/vue'
 
-import CollapsibleAccordion from "@/components/Shared/CollapsibleAccordion.vue";
+import CollapsibleAccordion from '@/components/Shared/CollapsibleAccordion.vue'
 
-describe("CollapsibleAccordion", () => {
+describe('collapsibleAccordion', () => {
   const renderCollapsibleAccordion = (configObject = {}) => {
     render(CollapsibleAccordion, {
       global: {
@@ -11,39 +11,39 @@ describe("CollapsibleAccordion", () => {
         },
       },
       props: {
-        header: "My Category",
+        header: 'My Category',
       },
       slots: {
-        default: "<h3>My nested child</h3>",
+        default: '<h3>My nested child</h3>',
       },
       ...configObject,
-    });
-  };
+    })
+  }
 
-  it("renders child content", async () => {
-    const props = { header: "My Category" };
-    const slots = { default: "<h3>My nested child</h3>" };
-    const configObject = { props, slots };
+  it('renders child content', async () => {
+    const props = { header: 'My Category' }
+    const slots = { default: '<h3>My nested child</h3>' }
+    const configObject = { props, slots }
 
-    renderCollapsibleAccordion(configObject);
-    expect(screen.queryByText("My nested child")).not.toBeInTheDocument();
-    const button = screen.getByRole("button", { name: /my category/i });
-    await fireEvent.click(button);
+    renderCollapsibleAccordion(configObject)
+    expect(screen.queryByText('My nested child')).not.toBeInTheDocument()
+    const button = screen.getByRole('button', { name: /my category/i })
+    await fireEvent.click(button)
 
-    expect(screen.getByText("My nested child")).toBeInTheDocument();
-  });
+    expect(screen.getByText('My nested child')).toBeInTheDocument()
+  })
 
-  describe("when parent does not provide custom child content", () => {
-    it("renders default content", async () => {
-      const props = { header: "My Category" };
-      const slots = {};
-      const configObject = { props, slots };
+  describe('when parent does not provide custom child content', () => {
+    it('renders default content', async () => {
+      const props = { header: 'My Category' }
+      const slots = {}
+      const configObject = { props, slots }
 
-      renderCollapsibleAccordion(configObject);
-      const button = screen.getByRole("button", { name: /my category/i });
-      await fireEvent.click(button);
+      renderCollapsibleAccordion(configObject)
+      const button = screen.getByRole('button', { name: /my category/i })
+      await fireEvent.click(button)
 
-      expect(screen.getByText("Populate me!")).toBeInTheDocument();
-    });
-  });
-});
+      expect(screen.getByText('Populate me!')).toBeInTheDocument()
+    })
+  })
+})
