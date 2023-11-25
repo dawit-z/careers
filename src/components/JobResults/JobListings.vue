@@ -7,18 +7,18 @@ import usePreviousAndNextPages from '@/composables/usePreviousAndNextPages'
 import { useDegreesStore } from '@/stores/degrees'
 
 const jobsStore = useJobsStore()
-onMounted(jobsStore.fetchJobs)
-
 const degreesStore = useDegreesStore()
+const route = useRoute()
+
+onMounted(jobsStore.fetchJobs)
 onMounted(degreesStore.fetchDegrees)
 
 const filteredJobs = computed(() => jobsStore.filteredJobs)
+const maxPage = computed(() => Math.ceil(filteredJobs.value.length / 10))
 
-const route = useRoute()
 const currentPage = computed(() =>
   Number.parseInt((route.query.page as string) || '1'),
 )
-const maxPage = computed(() => Math.ceil(filteredJobs.value.length / 10))
 
 const { previousPage, nextPage } = usePreviousAndNextPages(
   currentPage,
@@ -29,7 +29,6 @@ const displayedJobs = computed(() => {
   const pageNumber = currentPage.value
   const firstJobIndex = (pageNumber - 1) * 10
   const lastJobIndex = pageNumber * 10
-
   return filteredJobs.value.slice(firstJobIndex, lastJobIndex)
 })
 </script>
@@ -48,19 +47,15 @@ const displayedJobs = computed(() => {
 
         <div class="flex items-center justify-center">
           <router-link
-            v-if="previousPage"
-            :to="{ name: 'JobResults', query: { page: previousPage } }"
-            class="mx-3 text-sm font-semibold text-brand-blue-1"
-            role="link"
+            v-if="previousPage" :to="{ name: 'JobResults', query: { page: previousPage } }"
+            class="mx-3 text-sm font-semibold text-brand-blue-1" role="link"
           >
             Previous
           </router-link>
 
           <router-link
-            v-if="nextPage"
-            :to="{ name: 'JobResults', query: { page: nextPage } }"
-            class="mx-3 text-sm font-semibold text-brand-blue-1"
-            role="link"
+            v-if="nextPage" :to="{ name: 'JobResults', query: { page: nextPage } }"
+            class="mx-3 text-sm font-semibold text-brand-blue-1" role="link"
           >
             Next
           </router-link>

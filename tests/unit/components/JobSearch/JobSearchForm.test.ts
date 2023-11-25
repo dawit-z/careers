@@ -1,8 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/vue'
-
 import { useRouter } from 'vue-router'
-
-import type { Mock } from 'vitest'
+import { type Mock, expect } from 'vitest'
 import JobSearchForm from '@/components/JobSearch/JobSearchForm.vue'
 
 vi.mock('vue-router')
@@ -17,7 +15,7 @@ describe('jobSearchForm', () => {
       render(JobSearchForm, {
         global: {
           stubs: {
-            FontAwesomeIcon: true,
+            Icon: true,
           },
         },
       })

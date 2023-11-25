@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/vue'
-
+import { expect } from 'vitest'
 import CollapsibleAccordion from '@/components/Shared/CollapsibleAccordion.vue'
 
 describe('collapsibleAccordion', () => {

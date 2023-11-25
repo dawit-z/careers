@@ -7,13 +7,12 @@ import { useUserStore } from '@/stores/user'
 import { useDegreesStore } from '@/stores/degrees'
 
 const jobsStore = useJobsStore()
+const userStore = useUserStore()
+const degreesStore = useDegreesStore()
+
 const uniqueOrganizations = computed(() => jobsStore.uniqueOrganizations)
 const uniqueJobTypes = computed(() => jobsStore.uniqueJobTypes)
-
-const degreesStore = useDegreesStore()
 const uniqueDegrees = computed(() => degreesStore.uniqueDegrees)
-
-const userStore = useUserStore()
 </script>
 
 <template>
@@ -29,6 +28,7 @@ const userStore = useUserStore()
       </div>
 
       <JobFiltersGroup header="Degrees" :unique-values="uniqueDegrees" :action="userStore.addSelectedDegrees" />
+
       <JobFiltersGroup header="Job Types" :unique-values="uniqueJobTypes" :action="userStore.addSelectedJobTypes" />
 
       <JobFiltersGroup

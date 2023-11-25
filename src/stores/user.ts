@@ -7,11 +7,11 @@ export const useUserStore = defineStore('user', () => {
   const selectedJobTypes = ref<string[]>([])
   const selectedDegrees = ref<string[]>([])
 
-  const loginUser = () => {
+  function loginUser() {
     isLoggedIn.value = true
   }
 
-  const addSelectedOrganizations = (organizations: string[]) => {
+  function addSelectedOrganizations(organizations: string[]) {
     selectedOrganizations.value = organizations
   }
 

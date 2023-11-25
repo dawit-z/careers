@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/vue'
 import { createTestingPinia } from '@pinia/testing'
 import { useRouter } from 'vue-router'
-import type { Mock } from 'vitest'
+import { type Mock, expect } from 'vitest'
 import JobFiltersGroup from '@/components/JobResults/JobFiltersGroup.vue'
 
 vi.mock('vue-router')

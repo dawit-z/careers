@@ -11,10 +11,9 @@ const isLoggedIn = computed(() => userStore.isLoggedIn)
 const menuItems = ref([
   { text: 'Teams', url: '/teams' },
   { text: 'Locations', url: '/' },
-  { text: 'Life at Bobo Corp', url: '/' },
-  { text: 'How we hire', url: '/' },
-  { text: 'Students', url: '/' },
+  { text: 'Benefits', url: '/' },
   { text: 'Jobs', url: '/jobs/results' },
+  { text: 'Students', url: '/' },
 ])
 
 const headerHeight = computed(() => ({

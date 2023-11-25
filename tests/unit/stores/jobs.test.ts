@@ -1,4 +1,4 @@
-import type { Mock } from 'vitest'
+import { type Mock, expect } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia'
 import axios from 'axios'
 

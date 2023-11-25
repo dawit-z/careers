@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/vue'
 import axios from 'axios'
-import type { Mock } from 'vitest'
+import { type Mock, expect } from 'vitest'
 import SpotLight from '@/components/JobSearch/SpotLight.vue'
 
 vi.mock('axios')

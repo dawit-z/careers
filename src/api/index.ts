@@ -1,16 +1,28 @@
 import axios from 'axios'
-import type { Degree, Job } from './types'
+import type { Degree, Job, Spotlight } from './types'
 
-export async function getDegrees() {
-  const baseUrl = import.meta.env.VITE_APP_API_URL
-  const url = `${baseUrl}/degrees`
-  const response = await axios.get<Degree[]>(url)
-  return response.data
+const baseUrl = import.meta.env.VITE_APP_API_URL
+
+async function fetchData<T>(endpoint: string): Promise<T> {
+  const url = `${baseUrl}/${endpoint}`
+  try {
+    const response = await axios.get<T>(url)
+    return response.data
+  }
+  catch (error) {
+    console.error(`Failed to fetch data from ${url}`, error)
+    throw error
+  }
 }
 
-export async function getJobs() {
-  const baseUrl = import.meta.env.VITE_APP_API_URL
-  const url = `${baseUrl}/jobs`
-  const response = await axios.get<Job[]>(url)
-  return response.data
+export function getDegrees() {
+  return fetchData<Degree[]>('degrees')
+}
+
+export function getJobs() {
+  return fetchData<Job[]>('jobs')
+}
+
+export function getSpotlights() {
+  return fetchData<Spotlight[]>('spotlights')
 }

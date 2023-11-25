@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/vue'
 import { createTestingPinia } from '@pinia/testing'
-import type { Mock } from 'vitest'
+import { type Mock, expect } from 'vitest'
 import { useRoute } from 'vue-router'
 
 import TheSubnav from '@/components/Navigation/TheSubnav.vue'
@@ -19,7 +19,7 @@ describe('theSubnav', () => {
       global: {
         plugins: [pinia],
         stubs: {
-          FontAwesomeIcon: true,
+          Icon: true,
         },
       },
     })

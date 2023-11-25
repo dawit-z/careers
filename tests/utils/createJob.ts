@@ -15,3 +15,5 @@ export function createJob(job: Partial<Job> = {}): Job {
     ...job,
   }
 }
+
+createJob({ title: 'Vue Developer', organization: 'Vue and Me' })

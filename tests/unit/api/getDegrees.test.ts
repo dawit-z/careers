@@ -1,6 +1,6 @@
-import type { Mock } from 'vitest'
+import { type Mock, expect } from 'vitest'
 import axios from 'axios'
-import getDegrees from '@/api/getDegrees'
+import { getDegrees } from '@/api/index'
 
 vi.mock('axios')
 const axiosGetMock = axios.get as Mock

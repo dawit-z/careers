@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/vue'
 import { RouterLinkStub } from '@vue/test-utils'
-import type { Mock } from 'vitest'
+import { type Mock, expect } from 'vitest'
 import { createTestingPinia } from '@pinia/testing'
 import { useRoute } from 'vue-router'
 import { useUserStore } from '@/stores/user'
@@ -41,10 +41,9 @@ describe('theMainNav', () => {
     expect(navigationMenuTexts).toEqual([
       'Teams',
       'Locations',
-      'Life at Bobo Corp',
-      'How we hire',
-      'Students',
+      'Benefits',
       'Jobs',
+      'Students',
     ])
   })
 

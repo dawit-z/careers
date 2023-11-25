@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/vue'
 import { RouterLinkStub } from '@vue/test-utils'
 import { createTestingPinia } from '@pinia/testing'
 import { useRoute } from 'vue-router'
+import { expect } from 'vitest'
 import JobListings from '@/components/JobResults/JobListings.vue'
 import { useJobsStore } from '@/stores/jobs'
 

@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/vue'
 import { RouterLinkStub } from '@vue/test-utils'
+import { expect } from 'vitest'
 import { createJob } from '../../../utils/createJob'
 import JobListing from '@/components/JobResults/JobListing.vue'
 import type { Job } from '@/api/types'

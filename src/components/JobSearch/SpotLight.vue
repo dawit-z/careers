@@ -1,22 +1,13 @@
 <script setup lang="ts">
-import axios from 'axios'
 import { onMounted, ref } from 'vue'
+import type { Spotlight } from '@/api/types'
+import { getSpotlights } from '@/api'
 
-interface Spotlight {
-  id: number
-  img: string
-  title: string
-  description: string
-}
 const spotlights = ref<Spotlight[]>([])
 
-async function getSpotlights() {
-  const baseUrl = `${import.meta.env.VITE_APP_API_URL}/spotlights`
-  const response = await axios.get<Spotlight[]>(baseUrl)
-  spotlights.value = response.data
-}
-
-onMounted(getSpotlights)
+onMounted(async () => {
+  spotlights.value = await getSpotlights()
+})
 </script>
 
 <template>

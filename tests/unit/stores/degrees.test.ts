@@ -1,7 +1,7 @@
 import { createPinia, setActivePinia } from 'pinia'
 import axios from 'axios'
-import type { Mock } from 'vitest'
-import { createDegree } from 'tests/utils/createDegree'
+import { type Mock, expect } from 'vitest'
+import { createDegree } from '../../utils/createDegree'
 import { useDegreesStore } from '@/stores/degrees'
 
 vi.mock('axios')

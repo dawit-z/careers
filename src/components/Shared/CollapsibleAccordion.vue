@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { Icon } from '@iconify/vue'
 
 defineProps({
   header: {
@@ -15,7 +16,7 @@ function open() {
 }
 
 const caretIcon = computed(() =>
-  isOpen.value ? ['fas', 'angle-up'] : ['fas', 'angle-down'],
+  isOpen.value ? 'fa6-solid:angle-up' : 'fa6-solid:angle-down',
 )
 </script>
 
@@ -29,7 +30,8 @@ const caretIcon = computed(() =>
       <h3 class="text-base font-semibold">
         {{ header }}
       </h3>
-      <font-awesome-icon :icon="caretIcon" />
+
+      <Icon :icon="caretIcon" />
     </div>
 
     <div v-if="isOpen" class="mt-5 w-full">

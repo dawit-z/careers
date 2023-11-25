@@ -12,11 +12,11 @@ export const useJobsStore = defineStore('jobs', () => {
   }
 
   const uniqueOrganizations = computed(() => {
-    return [...new Set(jobs.value.map(job => job.organization))]
+    return new Set(jobs.value.map(job => job.organization))
   })
 
   const uniqueJobTypes = computed(() => {
-    return [...new Set(jobs.value.map(job => job.jobType))]
+    return new Set(jobs.value.map(job => job.jobType))
   })
 
   const includeJobByOrganization = (job: Job) => {
@@ -49,7 +49,6 @@ export const useJobsStore = defineStore('jobs', () => {
       .filter(job => includeJobByJobType(job))
       .filter(job => includeJobByDegree(job))
   })
-
 
   return {
     jobs,
