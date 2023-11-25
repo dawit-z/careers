@@ -2,40 +2,23 @@
 
 This template should help get you started developing with Vue 3 in Vite.
 
-## Recommended IDE Setup
+## Usage
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+### Development
 
-## Customize configuration
+Just run and visit http://localhost:8080
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+```bash
+pnpm install # If you don't have pnpm installed, run: npm install -g pnpm
+pnpm dev
 ```
 
-### Compile and Hot-Reload for Development
+### Build
 
-```sh
-npm run dev
+To build the App, run
+
+```bash
+pnpm build
 ```
 
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+And you will see the generated file in `dist` that ready to be served.
