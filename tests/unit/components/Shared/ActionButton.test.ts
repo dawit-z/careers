@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/vue'
+import { expect } from 'vitest'
 
 import ActionButton from '@/components/Shared/ActionButton.vue'
 

@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/vue'
 import { nextTick } from 'vue'
+import { expect } from 'vitest'
 import TheHeadline from '@/components/JobSearch/TheHeadline.vue'
 
 describe('theHeadline', () => {

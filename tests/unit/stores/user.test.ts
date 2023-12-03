@@ -1,4 +1,5 @@
 import { createPinia, setActivePinia } from 'pinia'
+import { expect } from 'vitest'
 import { useUserStore } from '@/stores/user'
 
 describe('state', () => {

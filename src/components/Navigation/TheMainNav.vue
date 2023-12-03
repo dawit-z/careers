@@ -6,7 +6,11 @@ import ProfileImage from '@/components/Navigation/ProfileImage.vue'
 import TheSubnav from '@/components/Navigation/TheSubnav.vue'
 
 const userStore = useUserStore()
-const isLoggedIn = computed(() => userStore.isLoggedIn)
+
+const headerHeight = computed(() => ({
+  'h-16': !userStore.isLoggedIn,
+  'h-32': userStore.isLoggedIn,
+}))
 
 const menuItems = ref([
   { text: 'Teams', url: '/teams' },
@@ -15,11 +19,6 @@ const menuItems = ref([
   { text: 'Jobs', url: '/jobs/results' },
   { text: 'Students', url: '/' },
 ])
-
-const headerHeight = computed(() => ({
-  'h-16': !isLoggedIn.value,
-  'h-32': isLoggedIn.value,
-}))
 </script>
 
 <template>
@@ -53,12 +52,12 @@ const headerHeight = computed(() => ({
         </nav>
 
         <div class="ml-auto flex h-full items-center">
-          <ProfileImage v-if="isLoggedIn" />
+          <ProfileImage v-if="userStore.isLoggedIn" />
           <ActionButton v-else text="Sign in" @click="userStore.loginUser" />
         </div>
       </div>
 
-      <TheSubnav v-if="isLoggedIn" />
+      <TheSubnav v-if="userStore.isLoggedIn" />
     </div>
   </header>
 </template>

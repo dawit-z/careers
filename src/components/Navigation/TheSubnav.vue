@@ -6,8 +6,8 @@ import { useJobsStore } from '@/stores/jobs'
 
 const jobsStore = useJobsStore()
 const route = useRoute()
+
 const onJobResultsPage = computed(() => route.name === 'JobResults')
-const filteredJobs = computed(() => jobsStore.filteredJobs)
 </script>
 
 <template>
@@ -15,7 +15,7 @@ const filteredJobs = computed(() => jobsStore.filteredJobs)
     <div class="flex h-full items-center px-8">
       <div v-if="onJobResultsPage">
         <Icon icon="ic:round-search" class="mr-3" />
-        <span><span class="text-brand-green-1">{{ filteredJobs.length }}</span>
+        <span><span class="text-brand-green-1">{{ jobsStore.filteredJobs.length }}</span>
           jobs matched</span>
       </div>
     </div>

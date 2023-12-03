@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/vue'
+import { expect } from 'vitest'
 
 import TextInput from '@/components/Shared/TextInput.vue'
 
