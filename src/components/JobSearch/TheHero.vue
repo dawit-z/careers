@@ -16,6 +16,7 @@ import SpotLight from '@/components/JobSearch/SpotLight.vue'
 
         <div class="col-span-5 col-start-7  justify-self-center">
           <img
+            alt="Vue logo"
             class="h-80 w-80 object-contain"
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/2367px-Vue.js_Logo_2.svg.png"
           >

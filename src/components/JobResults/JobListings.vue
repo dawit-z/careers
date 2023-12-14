@@ -16,8 +16,8 @@ onMounted(degreesStore.fetchDegrees)
 const filteredJobs = computed(() => jobsStore.filteredJobs)
 const maxPage = computed(() => Math.ceil(filteredJobs.value.length / 10))
 
-const currentPage = computed(() =>
-  Number.parseInt((route.query.page as string) || '1'),
+const currentPage = computed(
+  () => Number.parseInt((route.query.page as string) || '1'),
 )
 
 const { previousPage, nextPage } = usePreviousAndNextPages(
@@ -35,9 +35,7 @@ const displayedJobs = computed(() => {
 
 <template>
   <main class="flex-auto bg-brand-gray-2 p-8">
-    <ol>
-      <JobListing v-for="job in displayedJobs" :key="job.id" :job="job" />
-    </ol>
+    <JobListing v-for="job in displayedJobs" :key="job.id" :job="job" />
 
     <div class="mx-auto mt-8">
       <div class="flex flex-row flex-nowrap">
