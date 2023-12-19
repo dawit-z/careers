@@ -12,6 +12,7 @@ describe('jobListings', () => {
   const renderJobListings = () => {
     const pinia = createTestingPinia()
     const jobsStore = useJobsStore()
+
     jobsStore.filteredJobs = Array(15).fill({})
 
     render(JobListings, {

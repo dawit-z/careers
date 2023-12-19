@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import ActionButton from '@/components/Shared/ActionButton.vue'
 import JobFiltersGroup from '@/components/JobResults/JobFiltersGroup.vue'
 import { useJobsStore } from '@/stores/jobs'
