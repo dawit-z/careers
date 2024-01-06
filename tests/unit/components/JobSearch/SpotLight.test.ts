@@ -4,7 +4,6 @@ import { type Mock, expect } from 'vitest'
 import SpotLight from '@/components/JobSearch/SpotLight.vue'
 
 vi.mock('axios')
-
 const axiosGetMock = axios.get as Mock
 
 describe('spotLight', () => {

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-const modelValue = defineModel()
+const model = defineModel()
 </script>
 
 <template>
   <input
-    v-model="modelValue"
+    v-model="model"
     type="text"
     class="w-full text-lg font-normal focus:outline-none"
   >

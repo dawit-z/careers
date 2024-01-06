@@ -2,11 +2,14 @@ import { render, screen } from '@testing-library/vue'
 import { RouterLinkStub } from '@vue/test-utils'
 import { createTestingPinia } from '@pinia/testing'
 import { useRoute } from 'vue-router'
+import type { Mock } from 'vitest'
 import { expect } from 'vitest'
 import JobListings from '@/components/JobResults/JobListings.vue'
 import { useJobsStore } from '@/stores/jobs'
 
 vi.mock('vue-router')
+
+const useRouteMock = useRoute as Mock
 
 describe('jobListings', () => {
   const renderJobListings = () => {
@@ -28,13 +31,13 @@ describe('jobListings', () => {
   }
 
   it('fetches jobs', async () => {
-    useRoute.mockReturnValue({ query: {} })
+    useRouteMock.mockReturnValue({ query: {} })
     const { jobsStore } = renderJobListings()
     expect(jobsStore.fetchJobs).toHaveBeenCalled()
   })
 
   it('displays a maximum of 10 jobs', async () => {
-    useRoute.mockReturnValue({ query: { page: '1' } })
+    useRouteMock.mockReturnValue({ query: { page: '1' } })
 
     const { jobsStore } = renderJobListings()
     jobsStore.jobs = Array(15).fill({})
@@ -45,7 +48,7 @@ describe('jobListings', () => {
 
   describe('when params exclude page number', () => {
     it('displays page number 1', () => {
-      useRoute.mockReturnValue({ query: {} })
+      useRouteMock.mockReturnValue({ query: {} })
 
       renderJobListings()
 
@@ -55,7 +58,7 @@ describe('jobListings', () => {
 
   describe('when params include page number', () => {
     it('displays page number', () => {
-      useRoute.mockReturnValue({ query: { page: '3' } })
+      useRouteMock.mockReturnValue({ query: { page: '3' } })
 
       renderJobListings()
 
@@ -65,7 +68,7 @@ describe('jobListings', () => {
 
   describe('when user is on first page', () => {
     it('does not show previous button', async () => {
-      useRoute.mockReturnValue({ query: { page: '1' } })
+      useRouteMock.mockReturnValue({ query: { page: '1' } })
 
       const { jobsStore } = renderJobListings()
       jobsStore.filteredJobs = Array(15).fill({})
@@ -76,7 +79,7 @@ describe('jobListings', () => {
     })
 
     it('shows the next button', async () => {
-      useRoute.mockReturnValue({ query: { page: '1' } })
+      useRouteMock.mockReturnValue({ query: { page: '1' } })
 
       const { jobsStore } = renderJobListings()
       jobsStore.jobs = Array(15).fill({})
@@ -89,7 +92,7 @@ describe('jobListings', () => {
 
   describe('when user is on last page', () => {
     it('does not show link to next page', async () => {
-      useRoute.mockReturnValue({ query: { page: '2' } })
+      useRouteMock.mockReturnValue({ query: { page: '2' } })
 
       const { jobsStore } = renderJobListings()
       jobsStore.jobs = Array(15).fill({})
@@ -100,7 +103,7 @@ describe('jobListings', () => {
     })
 
     it('shows link to previous page', async () => {
-      useRoute.mockReturnValue({ query: { page: '2' } })
+      useRouteMock.mockReturnValue({ query: { page: '2' } })
 
       const { jobsStore } = renderJobListings()
       jobsStore.jobs = Array(15).fill({})
