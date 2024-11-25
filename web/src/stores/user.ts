@@ -3,6 +3,7 @@ import { ref } from 'vue'
 
 export const useUserStore = defineStore('user', () => {
   const isLoggedIn = ref(false)
+  
   const selectedOrganizations = ref<Array<string>>([])
   const selectedJobTypes = ref<Array<string>>([])
   const selectedDegrees = ref<Array<string>>([])

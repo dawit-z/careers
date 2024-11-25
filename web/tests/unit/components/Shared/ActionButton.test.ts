@@ -1,6 +1,6 @@
-import { expect } from 'vitest'
-import { mount } from '@vue/test-utils'
 import ActionButton from '@/components/Shared/ActionButton.vue'
+import { mount } from '@vue/test-utils'
+import { expect } from 'vitest'
 
 describe('actionButton', () => {
   it('renders text', () => {
@@ -12,7 +12,7 @@ describe('actionButton', () => {
     })
 
     const button = wrapper.get('button')
-    expect(button).toBe('Click me')
+    expect(button.text()).toBe('Click me')
   })
 
   it('applies one of several styles to button', () => {

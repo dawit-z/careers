@@ -1,6 +1,8 @@
-import { expect } from 'vitest'
-import { mount } from '@vue/test-utils'
 import HeaderContainer from '@/components/Shared/HeaderContainer.vue'
+import { mount } from '@vue/test-utils'
+import { expect } from 'vitest'
+
+// let wrapper: VueWrapper<InstanceType<typeof HeaderContainer>>
 
 describe('headerContainer', () => {
   it('allows parent component to provide title content', () => {

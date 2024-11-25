@@ -1,8 +1,8 @@
-import { createPinia, setActivePinia } from 'pinia'
-import axios from 'axios'
-import { type Mock, expect } from 'vitest'
-import { createDegree } from '../../utils/createDegree'
 import { useDegreesStore } from '@/stores/degrees'
+import axios from 'axios'
+import { createPinia, setActivePinia } from 'pinia'
+import { expect, type Mock } from 'vitest'
+import { createDegree } from '../../utils/mocks'
 
 vi.mock('axios')
 
@@ -45,7 +45,7 @@ describe('getters', () => {
   })
 
   describe('uniqueDegrees', () => {
-    it('makes api request and stores degrees', () => {
+    it('computes a unique list of degrees', () => {
       const store = useDegreesStore()
       store.degrees = [
         createDegree({ degree: 'Master\'s' }),

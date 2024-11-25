@@ -1,36 +1,33 @@
-import { useRouter } from 'vue-router'
-import { type Mock, expect } from 'vitest'
 import JobSearchForm from '@/components/JobSearch/JobSearchForm.vue'
+import { flushPromises, mount } from '@vue/test-utils'
+import { expect, type Mock } from 'vitest'
+import { useRouter } from 'vue-router'
 
 vi.mock('vue-router')
+const useRouterMock = useRouter as Mock
 
-const useMockRouter = useRouter as Mock
 describe('jobSearchForm', () => {
+  function mountJobSearchForm() {
+    return mount(JobSearchForm)
+  }
+
   describe('when user submits form', () => {
     it('directs user to job results page with user\'s search parameters', async () => {
       const push = vi.fn()
-      useMockRouter.mockReturnValue({ push })
+      useRouterMock.mockImplementation(() => ({
+        push,
+      }))
+      const wrapper = mountJobSearchForm()
 
-      render(JobSearchForm, {
-        global: {
-          stubs: {
-            Icon: true,
-          },
-        },
-      })
+      await wrapper.find('#role').setValue('Developer')
+      await wrapper.find('#location').setValue('Dallas')
+      await wrapper.find('[data-test="submit-btn"]').trigger('click')
+      await flushPromises()
 
-      const roleInput = screen.getByRole('textbox', { name: 'Role' })
-      await fireEvent.update(roleInput, 'Vue Developer')
-
-      const locationInput = screen.getByRole('textbox', { name: 'Where?' })
-      await fireEvent.update(locationInput, 'Dallas')
-
-      const submitButton = screen.getByRole('button', { name: 'Search' })
-      await fireEvent.click(submitButton)
-
+      expect(push).toHaveBeenCalled()
       expect(push).toHaveBeenCalledWith({
         name: 'JobResults',
-        query: { role: 'Vue Developer', location: 'Dallas' },
+        query: { role: 'Developer', location: 'Dallas' },
       })
     })
   })

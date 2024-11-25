@@ -1,13 +1,33 @@
-import { createApp } from 'vue'
+import app from '@/app.vue'
+import router from '@/router'
+
+import Aura from '@primevue/themes/aura'
 import { createPinia } from 'pinia'
 
-import '@/styles/index.css'
-import router from '@/router'
-import App from '@/App.vue'
+import PrimeVue from 'primevue/config'
+import { createApp } from 'vue'
+import { createI18n } from 'vue-i18n'
+import en from './locales/en.json'
+import './style.css'
 
 const pinia = createPinia()
 
-createApp(App)
+const i18n = createI18n({
+  fallbackLocale: 'en',
+  locale: navigator.language,
+  legacy: false,
+  messages: {
+    en,
+  },
+})
+
+createApp(app)
+  .use(i18n)
+  .use(PrimeVue, {
+    theme: {
+      preset: Aura,
+    },
+  })
   .use(pinia)
   .use(router)
   .mount('#app')

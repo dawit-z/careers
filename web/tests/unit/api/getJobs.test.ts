@@ -1,21 +1,14 @@
-import { type Mock, expect } from 'vitest'
-import axios from 'axios'
+import { api } from '@/api'
 import { getJobs } from '@/api/index'
+import { expect } from 'vitest'
 
-vi.mock('axios')
-const axiosGetMock = axios.get as Mock
+vi.mock('@/api')
 
 describe('getJobs', () => {
-  beforeEach(() => {
-    axiosGetMock.mockResolvedValue({
-      data: [{ id: 1, title: 'Vue Developer' }],
-    })
-  })
-
   it('fetches and extracts jobs from response', async () => {
     const jobs = await getJobs()
 
-    expect(axios.get).toHaveBeenCalledWith('http://myfakeapi.com/jobs')
+    expect(api).toHaveBeenCalledWith('http://myfakeapi.com/jobs')
     expect(jobs).toEqual([{ id: 1, title: 'Vue Developer' }])
   })
 })

@@ -1,4 +1,4 @@
-import { type Ref, computed } from 'vue'
+import { computed, type Ref } from 'vue'
 
 function usePreviousAndNextPages(currentPage: Ref<number>, maxPage: Ref<number>) {
   const previousPage = computed(() => {

@@ -1,10 +1,10 @@
-import { RouterLinkStub, mount } from '@vue/test-utils'
-import { createTestingPinia } from '@pinia/testing'
-import { useRoute } from 'vue-router'
 import type { Mock } from 'vitest'
-import { expect } from 'vitest'
 import JobListings from '@/components/JobResults/JobListings.vue'
 import { useJobsStore } from '@/stores/jobs'
+import { createTestingPinia } from '@pinia/testing'
+import { mount, RouterLinkStub } from '@vue/test-utils'
+import { expect } from 'vitest'
+import { useRoute } from 'vue-router'
 
 vi.mock('vue-router')
 const useRouteMock = useRoute as Mock
@@ -12,9 +12,6 @@ const useRouteMock = useRoute as Mock
 describe('jobListings', () => {
   function mountJobListings() {
     const pinia = createTestingPinia()
-    const jobsStore = useJobsStore()
-
-    jobsStore.filteredJobs = Array(15).fill({})
 
     return mount(JobListings, {
       global: {
@@ -28,15 +25,19 @@ describe('jobListings', () => {
 
   it('fetches jobs', async () => {
     useRouteMock.mockReturnValue({ query: {} })
-    const wrapper = mountJobListings()
+    mountJobListings()
+
+    const jobsStore = useJobsStore()
     expect(jobsStore.fetchJobs).toHaveBeenCalled()
   })
 
   it('displays a maximum of 10 jobs', async () => {
     useRouteMock.mockReturnValue({ query: { page: '1' } })
 
-    const { jobsStore } = mountJobListings()
-    jobsStore.jobs = Array(15).fill({})
+    const wrapper = mountJobListings()
+
+    const jobsStore = useJobsStore()
+    jobsStore.jobs = Array.from({ length: 15 }).fill({})
 
     const jobListings = await screen.findAllByRole('listitem')
     expect(jobListings).toHaveLength(10)
@@ -46,9 +47,8 @@ describe('jobListings', () => {
     it('displays page number 1', () => {
       useRouteMock.mockReturnValue({ query: {} })
 
-      mountJobListings()
-
-      expect(screen.getByText('Page 1')).toBeInTheDocument()
+      const wrapper = mountJobListings()
+      expect(wrapper.text()).toContain('Page 1')
     })
   })
 
@@ -56,9 +56,8 @@ describe('jobListings', () => {
     it('displays page number', () => {
       useRouteMock.mockReturnValue({ query: { page: '3' } })
 
-      mountJobListings()
-
-      expect(screen.getByText('Page 3')).toBeInTheDocument()
+      const wrapper = mountJobListings()
+      expect(wrapper.text()).toContain('Page 3')
     })
   })
 
@@ -67,7 +66,7 @@ describe('jobListings', () => {
       useRouteMock.mockReturnValue({ query: { page: '1' } })
 
       const { jobsStore } = mountJobListings()
-      jobsStore.filteredJobs = Array(15).fill({})
+      jobsStore.filteredJobs = Array.from({ length: 15 }).fill({})
 
       await screen.findAllByRole('listitem')
       const previousLink = screen.queryByRole('link', { name: /previous/i })
@@ -78,7 +77,7 @@ describe('jobListings', () => {
       useRouteMock.mockReturnValue({ query: { page: '1' } })
 
       const { jobsStore } = mountJobListings()
-      jobsStore.jobs = Array(15).fill({})
+      jobsStore.jobs = Array.from({ length: 15 }).fill({})
 
       await screen.findAllByRole('listitem')
       const nextLink = screen.queryByRole('link', { name: /next/i })
@@ -91,7 +90,7 @@ describe('jobListings', () => {
       useRouteMock.mockReturnValue({ query: { page: '2' } })
 
       const { jobsStore } = mountJobListings()
-      jobsStore.jobs = Array(15).fill({})
+      jobsStore.jobs = Array.from({ length: 15 }).fill({})
 
       await screen.findAllByRole('listitem')
       const nextLink = screen.queryByRole('link', { name: /next/i })
@@ -101,8 +100,10 @@ describe('jobListings', () => {
     it('shows link to previous page', async () => {
       useRouteMock.mockReturnValue({ query: { page: '2' } })
 
-      const { jobsStore } = mountJobListings()
-      jobsStore.jobs = Array(15).fill({})
+      const wrapper = mountJobListings()
+      const jobsStore = useJobsStore()
+
+      jobsStore.jobs = Array.from({ length: 15 }).fill({})
 
       await screen.findAllByRole('listitem')
       const previousLink = screen.queryByRole('link', { name: /previous/i })

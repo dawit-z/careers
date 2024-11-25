@@ -1,8 +1,8 @@
-import { RouterLinkStub, mount } from '@vue/test-utils'
-import { expect } from 'vitest'
-import { createJob } from '../../../utils/createJob'
-import JobListing from '@/components/JobResults/JobListing.vue'
 import type { Job } from '@/api/types'
+import JobListing from '@/components/JobResults/JobListing.vue'
+import { mount, RouterLinkStub } from '@vue/test-utils'
+import { expect } from 'vitest'
+import { createJob } from '../../../utils/mocks'
 
 describe('jobListing', () => {
   function mountJobListing(job: Job) {

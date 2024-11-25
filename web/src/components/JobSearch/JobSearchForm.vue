@@ -1,49 +1,74 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
-import { ref } from 'vue'
-import { Icon } from '@iconify/vue'
-import TextInput from '../Shared/TextInput.vue'
 import ActionButton from '@/components/Shared/ActionButton.vue'
+import { toTypedSchema } from '@vee-validate/yup'
+import InputText from 'primevue/inputtext'
+import { useForm } from 'vee-validate'
+import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
+import { number, object, string } from 'yup'
 
+const { t } = useI18n()
 const router = useRouter()
 
-const role = ref('')
-const location = ref('')
+interface Person {
+  name: string
+  age: number
+}
 
-function searchForJobs() {
+interface FormValues {
+  role: string
+  location: string
+  user: Person | null
+}
+
+const schema = object({
+  role: string().required(),
+  location: string().required(),
+  user: object({
+    name: string(),
+    age: number(),
+  }).nullable().default(null),
+})
+
+const { errors, defineField, handleSubmit } = useForm<FormValues>({
+  validationSchema: toTypedSchema(schema),
+})
+
+const [role, roleAttrs] = defineField('role')
+const [location, locationAttrs] = defineField('location')
+const [userName, userNameAttrs] = defineField('user.name')
+
+const onSubmit = handleSubmit((values) => {
   router.push({
     name: 'JobResults',
     query: {
-      role: role.value,
-      location: location.value,
+      role: values.role,
+      location: values.location,
     },
   })
-}
+})
 </script>
 
 <template>
-  <form
-    class="flex h-12 w-full items-center rounded-3xl border border-solid border-brand-gray-3"
-    @submit.prevent="searchForJobs"
-  >
-    <Icon icon="ic:round-search" class="ml-4 mr-3" />
-    <div class="flex h-full flex-1 flex-nowrap text-base font-light">
-      <div class="relative flex h-full flex-1 items-center pr-3">
-        <label for="role" class="absolute -top-8 left-0">Role</label>
-        <TextInput id="role" v-model="role" placeholder="Software engineer" />
-      </div>
-
-      <span
-        class="flex h-full items-center border-l border-r border-brand-gray-3 bg-brand-gray-2 px-3"
-      >in
-      </span>
-
-      <div class="relative flex h-full flex-1 items-center pl-3">
-        <label for="location" class="absolute -top-8 left-0">Where?</label>
-        <TextInput id="location" v-model="location" placeholder="Los Angeles" />
-      </div>
+  <form class="flex h-12 w-full items-center rounded-3xl border border-solid border-brand-gray-3">
+    <div class="flex flex-col gap-2">
+      <label for="role" class="">{{ t('role') }}</label>
+      <InputText id="role" v-model="role" :role-attrs placeholder="Software engineer" />
+      <small v-if="errors.role" id="role-error">{{ errors.role }}</small>
     </div>
 
-    <ActionButton text="Search" type="secondary" class="rounded-r-3xl" data-test="submit-btn" />
+    <div class="flex flex-col gap-2">
+      <label for="location" class="">{{ t('where') }}</label>
+      <InputText id="location" v-model="location" :invalid="!!errors.location" :location-attrs placeholder="Los Angeles" />
+      <small v-if="errors.location" id="location-error">{{ errors.location }}</small>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label for="user" class="">{{ t('where') }}</label>
+      <InputText id="user" v-model="userName" :invalid="!!errors.user" :user-name-attrs placeholder="Los Angeles" />
+      <small v-if="errors.user" id="user-error">{{ errors.user }}</small>
+    </div>
+
+    <ActionButton text="Search" type="secondary" class="rounded-r-3xl" data-test="submit-btn" @click="onSubmit" />
   </form>
 </template>

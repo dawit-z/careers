@@ -1,9 +1,10 @@
-import { expect } from 'vitest'
 import CollapsibleAccordion from '@/components/Shared/CollapsibleAccordion.vue'
+import { mount } from '@vue/test-utils'
+import { expect } from 'vitest'
 
 describe('collapsibleAccordion', () => {
-  const renderCollapsibleAccordion = (configObject = {}) => {
-    render(CollapsibleAccordion, {
+  const mountCollapsibleAccordion = (configObject = {}) => {
+    return mount(CollapsibleAccordion, {
       global: {
         stubs: {
           FontAwesomeIcon: true,
@@ -24,12 +25,11 @@ describe('collapsibleAccordion', () => {
     const slots = { default: '<h3>My nested child</h3>' }
     const configObject = { props, slots }
 
-    renderCollapsibleAccordion(configObject)
-    expect(screen.queryByText('My nested child')).not.toBeInTheDocument()
-    const button = screen.getByRole('button', { name: /my category/i })
-    await fireEvent.click(button)
+    const wrapper = mountCollapsibleAccordion(configObject)
+    expect(wrapper.text()).not.toContain('My nested child')
 
-    expect(screen.getByText('My nested child')).toBeInTheDocument()
+    await wrapper.get('button').trigger('click')
+    expect(wrapper.text()).toContain('My nested child')
   })
 
   describe('when parent does not provide custom child content', () => {
@@ -38,7 +38,7 @@ describe('collapsibleAccordion', () => {
       const slots = {}
       const configObject = { props, slots }
 
-      renderCollapsibleAccordion(configObject)
+      const wrapper = mountCollapsibleAccordion(configObject)
       const button = screen.getByRole('button', { name: /my category/i })
       await fireEvent.click(button)
 

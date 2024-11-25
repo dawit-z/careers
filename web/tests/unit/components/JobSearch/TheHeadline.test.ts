@@ -1,9 +1,13 @@
-import { nextTick } from 'vue'
-import { expect } from 'vitest'
 import TheHeadline from '@/components/JobSearch/TheHeadline.vue'
 import { mount } from '@vue/test-utils'
+import { expect } from 'vitest'
+import { nextTick } from 'vue'
 
 describe('theHeadline', () => {
+  function mountTheHeadline() {
+    return mount(TheHeadline)
+  }
+
   beforeEach(() => {
     vi.useFakeTimers()
   })
@@ -12,23 +16,22 @@ describe('theHeadline', () => {
   })
 
   it('displays intro action verb', () => {
-    const wrapper = mount(TheHeadline)
+    const wrapper = mountTheHeadline()
 
     const actionVerb = wrapper.get('heading')
-
     expect(actionVerb).toBe('Find')
   })
 
   it('changes action verb at an interval', () => {
     const mock = vi.fn()
     vi.stubGlobal('setInterval', mock)
-    render(TheHeadline)
+    mountTheHeadline()
 
     expect(mock).toHaveBeenCalled()
   })
 
   it('swaps action verb after interval', async () => {
-    render(TheHeadline)
+    const wrapper = mountTheHeadline()
     vi.advanceTimersToNextTimer()
     await nextTick()
 
@@ -42,8 +45,8 @@ describe('theHeadline', () => {
     const clearInterval = vi.fn()
     vi.stubGlobal('clearInterval', clearInterval)
 
-    const { unmount } = render(TheHeadline)
-    unmount()
+    const wrapper = mountTheHeadline()
+    wrapper.unmount()
 
     expect(clearInterval).toHaveBeenCalled()
     vi.unstubAllGlobals()

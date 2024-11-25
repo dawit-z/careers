@@ -1,7 +1,7 @@
-import { ref } from 'vue'
+import usePreviousAndNextPages from '@/composables/usePreviousAndNextPages'
 import { expect } from 'vitest'
 
-import usePreviousAndNextPages from '@/composables/usePreviousAndNextPages'
+import { ref } from 'vue'
 
 describe('usePreviousAndNextPages', () => {
   it('calculates page before current one', () => {

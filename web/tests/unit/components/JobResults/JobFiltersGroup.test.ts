@@ -1,13 +1,12 @@
-import { createTestingPinia } from '@pinia/testing'
-import { type Mock, expect } from 'vitest'
-import { mount } from '@vue/test-utils'
 import JobFiltersGroup from '@/components/JobResults/JobFiltersGroup.vue'
+import { createTestingPinia } from '@pinia/testing'
+import { mount } from '@vue/test-utils'
+import { expect, type Mock } from 'vitest'
+import { useRouter } from 'vue-router'
 
-vi.mock('vue-router', () => ({
-  useRouter: vi.fn(() => ({
-    push: vi.fn(),
-  })),
-}))
+vi.mock('vue-router')
+
+const useRouterMock = useRouter as Mock
 
 describe('jobFiltersGroup', () => {
   interface FilterGroup {
@@ -47,9 +46,8 @@ describe('jobFiltersGroup', () => {
 
     const wrapper = mountJobFiltersGroup(props)
 
-    await wrapper.get('button').trigger('click')
-    // const button = screen.getByRole('button', { name: /job types/i })
-    // await fireEvent.click(button)
+    await wrapper.get('button').trigger('click') // job types
+    await wrapper.get('checkbox').trigger('click') // full-time
 
     const orgListItems = wrapper.findAll('listitem')
     const orgs = orgListItems.map(node => node.text())
@@ -66,33 +64,27 @@ describe('jobFiltersGroup', () => {
 
       const wrapper = mountJobFiltersGroup(props)
 
-      await wrapper.get('button').trigger('click')
+      await wrapper.get('button').trigger('click') // job types
+      await wrapper.get('checkbox').trigger('click') // full-time
 
-      const button = screen.getByRole('button', { name: /job types/i })
-      await fireEvent.click(button)
-
-      const fullTimeCheckbox = screen.getByRole('checkbox', {
-        name: /full-time/i,
-      })
-      await fireEvent.click(fullTimeCheckbox)
-
-      expect(action).toHaveBeenCalledWith(['Full-time'])
+      expect(props.action).toHaveBeenCalledWith(['Full-time'])
     })
 
     it('navigates user to job results page to see fresh batch of filtered jobs', async () => {
+      const push = vi.fn()
+      useRouterMock.mockImplementation(() => ({
+        push,
+      }))
+
       const props = createProps({
         header: 'Job Types',
         uniqueValues: new Set(['Full-time']),
       })
-      mountJobFiltersGroup(props)
 
-      const button = screen.getByRole('button', { name: /job types/i })
-      await fireEvent.click(button)
-
-      const fullTimeCheckbox = screen.getByRole('checkbox', {
-        name: /full-time/i,
-      })
-      await fireEvent.click(fullTimeCheckbox)
+      const wrapper = mountJobFiltersGroup(props)
+      await wrapper.get('button').trigger('click') // job types
+      await wrapper.get('checkbox').trigger('click') // full-time
+      // await flushPromises()
 
       expect(push).toHaveBeenCalledWith({ name: 'JobResults' })
     })

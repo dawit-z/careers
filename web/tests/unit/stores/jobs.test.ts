@@ -1,10 +1,10 @@
-import { type Mock, expect } from 'vitest'
-import { createPinia, setActivePinia } from 'pinia'
-import axios from 'axios'
-
-import { createJob } from '../../utils/createJob'
 import { useJobsStore } from '@/stores/jobs'
 import { useUserStore } from '@/stores/user'
+import axios from 'axios'
+
+import { createPinia, setActivePinia } from 'pinia'
+import { expect, type Mock } from 'vitest'
+import { createJob } from '../../utils/mocks'
 
 vi.mock('axios')
 const axiosGetMock = axios.get as Mock

@@ -1,19 +1,19 @@
-import { RouterLinkStub } from '@vue/test-utils'
-import { type Mock, expect } from 'vitest'
-import { createTestingPinia } from '@pinia/testing'
-import { useRoute } from 'vue-router'
-import { useUserStore } from '@/stores/user'
 import TheMainNav from '@/components/Navigation/TheMainNav.vue'
+import { useUserStore } from '@/stores/user'
+import { createTestingPinia } from '@pinia/testing'
+import { mount, RouterLinkStub } from '@vue/test-utils'
+import { expect, type Mock } from 'vitest'
+import { useRoute } from 'vue-router'
 
 vi.mock('vue-router')
 const useRouteMock = useRoute as Mock
 
 describe('theMainNav', () => {
-  const renderMainNav = () => {
+  const mountMainNav = () => {
     useRouteMock.mockReturnValue({ name: 'Home' })
     const pinia = createTestingPinia()
 
-    render(TheMainNav, {
+    return mount(TheMainNav, {
       global: {
         plugins: [pinia],
         stubs: {
@@ -25,13 +25,13 @@ describe('theMainNav', () => {
   }
 
   it('displays company name', () => {
-    renderMainNav()
-    const companyName = screen.getByText('Bobo Careers')
-    expect(companyName).toBeInTheDocument()
+    const wrapper = mountMainNav()
+    expect(wrapper.text()).toContain('Bobo Careers')
   })
 
   it('displays menu items for navigation', () => {
-    renderMainNav()
+    const wrapper = mountMainNav()
+
     const navigationMenuItems = screen.getAllByRole('listitem')
 
     const navigationMenuTexts = navigationMenuItems
@@ -48,7 +48,7 @@ describe('theMainNav', () => {
 
   describe('when the user logs in', () => {
     it('displays user profile picture', async () => {
-      renderMainNav()
+      const wrapper = mountMainNav()
       const userStore = useUserStore()
 
       let profileImage = screen.queryByRole('img', {
